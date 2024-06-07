@@ -7,6 +7,6 @@ Esto significa que se pueden instalar las dependencias y correr el servidor todo
 
 - En la carpeta raiz ejecuta el comando `npm i`
 
-- Crea un archivo .env en la carpeta del Servidor y completa las siguientes variables de entorno: `PORT` y `MONGO_URL_CONNECTION` ejemplos para estas variables pueden ser: `PORT=3000` y `MONGO_URL_CONNECTION="mongodb://127.0.0.1:27017/biblioteca"`
+- Crea un archivo .env en la carpeta Raiz y completa las siguientes variables de entorno: `PORT` y `MONGO_URL_CONNECTION` ejemplos para estas variables pueden ser: `PORT=3000` y `MONGO_URL_CONNECTION="mongodb://127.0.0.1:27017/biblioteca"`
 
-- Una vez instalados los paquetes y declaradas las variables de entorno en la carpeta del servidor, vuelve a la carpeta raiz del proyecto y ejecuta el comando `npm run dev`
+- Una vez instalados los paquetes y declaradas las variables de entorno en la carpeta del servidor raiz del proyecto ejecuta el comando `npm run dev`
