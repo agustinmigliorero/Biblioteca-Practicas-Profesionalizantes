@@ -1,0 +1,21 @@
+{
+  "name": "biblioteca-practicas-profesionalizantes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": " concurrently \"cd Servidor && npm run dev\" \"cd Cliente && npm run dev\" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "Cliente",
+    "Servidor"
+  ],
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5"
+  }
+}

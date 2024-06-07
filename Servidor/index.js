@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 //const passport = require("passport");
@@ -5,7 +6,7 @@ const mongoose = require("mongoose");
 const routerUsuarios = require("./Routes/usuario");
 
 //db conexion
-mongoose.connect("mongodb://127.0.0.1:27017/biblioteca", {
+mongoose.connect(process.env.MONGO_URL_CONNECTION, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -25,4 +26,6 @@ app.use(express.json());
 app.use("/usuarios", routerUsuarios);
 //rutas
 
-app.listen(3000, () => console.log("Server listening on port 3000"));
+app.listen(process.env.PORT, () =>
+  console.log(`Servidor encendido en el puerto: ${process.env.PORT}`)
+);
