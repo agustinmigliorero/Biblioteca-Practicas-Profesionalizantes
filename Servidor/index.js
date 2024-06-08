@@ -1,5 +1,6 @@
 require("dotenv").config({ path: "../.env" });
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 //const passport = require("passport");
 //const LocalStrategy = require("passport-local").Strategy;
@@ -19,6 +20,8 @@ db.once("open", () => console.log("Base de datos conectada!"));
 //db conexion
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
