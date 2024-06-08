@@ -32,10 +32,16 @@ const editarUsuario = async (req, res) => {
 };
 
 // CONTROLADOR PARA ELIMINAR USUARIO (SUJETO A EVALUACION DEL DISEÑADOR)
-// const eliminarUsuario = async (req, res) => {
-//   const { id } = req.params;
-//   const usuario = await Usuario.findByIdAndDelete(id);
-//   res.json({ mensaje: "Usuario eliminado", usuario });
-// };
+const eliminarUsuario = async (req, res) => {
+  const { id } = req.params;
+  const usuario = await Usuario.findByIdAndDelete(id);
+  res.json({ mensaje: "Usuario eliminado", usuario });
+};
 
-module.exports = { crearUsuario, verUsuario, verUsuarios, editarUsuario };
+module.exports = {
+  crearUsuario,
+  verUsuario,
+  verUsuarios,
+  editarUsuario,
+  eliminarUsuario,
+};

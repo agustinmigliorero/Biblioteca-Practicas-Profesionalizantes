@@ -1,5 +1,5 @@
 import { useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CrearUsuario () {
     const [usuario, setUsuario] = useState({
@@ -9,13 +9,12 @@ function CrearUsuario () {
         rol: "",
     });
     
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleChange = (evento) => {
         const inputACambiar = evento.target.name;
         const datoNuevo = evento.target.value;
         setUsuario({ ...usuario, [inputACambiar]: datoNuevo });
-        console.log({ ...usuario, [inputACambiar]: datoNuevo });
     };
 
    const enviarFormulario = () => {
@@ -32,9 +31,9 @@ function CrearUsuario () {
         }),
     })
     .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        navigate("/");
+    .then(() => {
+        //console.log(data);
+        navigate("/ver-usuarios");
     });
 
     
@@ -46,7 +45,7 @@ function CrearUsuario () {
            <>
                 <h1>Crear usuario</h1>
                 <form onSubmit={enviarFormulario}>
-                    <input type="number" onChange={handleChange} placeholder="DNI" name="dni"/>
+                    <input type="number" onChange={handleChange} value={usuario.dni} placeholder="DNI" name="dni"/>
                     <input type="text" onChange={handleChange} value={usuario.nombre} placeholder="Nombre" name="nombre"/>
                     <input type="text" onChange={handleChange} value={usuario.email} placeholder="Email" name="email"/>
                     <input type="text" onChange={handleChange} value={usuario.rol} placeholder="Rol" name="rol"/>

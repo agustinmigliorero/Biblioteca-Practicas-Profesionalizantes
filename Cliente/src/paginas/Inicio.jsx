@@ -6,7 +6,6 @@ function PaginaPrincipal () {
         <>
             <h1>Página principal</h1>
             <p>Pagina de ejemplo</p>
-            <p>Lo que me costo hacer esto qlea</p>
         </>
     )
 }

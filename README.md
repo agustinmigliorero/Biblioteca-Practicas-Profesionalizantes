@@ -3,6 +3,10 @@
 Esta aplicacion cuenta con un monorepo con dos paquetes (cliente y servidor)
 Esto significa que se pueden instalar las dependencias y correr el servidor todo desde la raiz.
 
+### Tecnologias necesarias:
+
+- NodeJS y MongoDB, links de descarga: [Descarga NodeJS](https://nodejs.org/en) | [Descarga MongoDB](https://www.mongodb.com/try/download/community)
+
 ### Guia de instalacion y uso:
 
 - En la carpeta raiz ejecuta el comando `npm i`
