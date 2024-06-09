@@ -1,52 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-function MostrarTabla () {
+function MostrarTabla() {
+  const [usuarios, setUsuarios] = useState([]);
 
-    const [usuarios, setUsuarios] = useState([]);
+  async function cargarUsuarios() {
+    const respuesta = await fetch("http://localhost:3000/usuarios");
+    const usuariosFetch = await respuesta.json();
+    setUsuarios(usuariosFetch);
+  }
 
-    async function cargarUsuarios() {
-        const respuesta = await fetch("http://localhost:3000/usuarios");
-        const usuariosFetch = await respuesta.json();
-        setUsuarios(usuariosFetch);
-      }
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
 
-    useEffect(() => {
-        cargarUsuarios();
-      }, []);
-    
+  function renderizarTablas() {
+    return usuarios.map((usuario, index) => (
+      <tr key={index}>
+        <td>{usuario.dni}</td>
+        <td>{usuario.nombre}</td>
+        <td>{usuario.email}</td>
+        <td>{usuario.rol}</td>
+        <td>{usuario.activo ? "Si" : "No"}</td>
+        <td>
+          <Link className="btn btn-primary" to={`/usuarios/${usuario._id}`}>
+            Ver
+          </Link>
+          <Link
+            className="btn btn-warning"
+            to={`/usuarios/editar-usuario/${usuario._id}`}
+          >
+            Editar
+          </Link>
+        </td>
+      </tr>
+    ));
+  }
 
-    function renderizarTablas() {
-        return usuarios.map((usuario, index) => (
-          <tr key={index}>
-            <td>{usuario.dni}</td>
-            <td>{usuario.nombre}</td>
-            <td>{usuario.email}</td>
-            <td>{usuario.rol}</td>
-            <td>{usuario.activo ? "Si" : "No" }</td>
+  return (
+    <>
+      <h1>Usuarios creados</h1>
+
+      <table className="table">
+        <thead>
+          <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Activo</th>
+            <th>Acciones</th>
           </tr>
-        ));
-      }
-    
-    
-
-    return (
-        <>
-        <h1>Usuarios creados</h1>
-
-        <table className="table">
-          <thead>
-            <tr>
-              <th>DNI</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Rol</th>
-              <th>Activo</th>
-            </tr>
-          </thead>
-          <tbody>{renderizarTablas()}</tbody>
-        </table>
-        </>
-    )
+        </thead>
+        <tbody>{renderizarTablas()}</tbody>
+      </table>
+    </>
+  );
 }
 
-export default MostrarTabla
+export default MostrarTabla;
