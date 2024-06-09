@@ -2,8 +2,10 @@ require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-//const passport = require("passport");
-//const LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const session = require("express-session");
+const LocalStrategy = require("passport-local");
+const Usuario = require("./Models/usuario");
 const routerUsuarios = require("./Routes/usuario");
 
 //db conexion
@@ -24,6 +26,24 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+//passport y session
+app.use(
+  session({
+    secret: process.env.SECRET_SESSION,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(Usuario.authenticate()));
+
+passport.serializeUser(Usuario.serializeUser());
+passport.deserializeUser(Usuario.deserializeUser());
+//passport y session
 
 //rutas
 app.use("/usuarios", routerUsuarios);
