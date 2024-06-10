@@ -9,7 +9,7 @@ const usuarioSchema = new Schema(
     apellido: { type: String },
     email: { type: String },
     password: { type: String },
-    rol: { type: String },
+    rol: { default: "Estudiante", type: String },
     activo: { type: Boolean, default: false },
   },
   {

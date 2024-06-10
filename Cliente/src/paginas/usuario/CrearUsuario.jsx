@@ -8,7 +8,6 @@ function CrearUsuario () {
         apellido: "",
         email: "",
         password: "",
-        rol: "",
         // activo: false,
     });
     
@@ -33,8 +32,6 @@ function CrearUsuario () {
             apellido: usuario.apellido,
             email: usuario.email,
             password: usuario.password,
-            rol: usuario.rol,
-            // activo: usuario.activo
         }),
     })
     .then((response) => response.json())
