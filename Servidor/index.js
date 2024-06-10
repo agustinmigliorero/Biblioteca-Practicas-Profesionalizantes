@@ -49,6 +49,13 @@ passport.deserializeUser(Usuario.deserializeUser());
 app.use("/usuarios", routerUsuarios);
 //rutas
 
+//error handler
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({ error: err.message });
+});
+//error handler
+
 app.listen(process.env.PORT, () =>
   console.log(`Servidor encendido en el puerto: ${process.env.PORT}`)
 );

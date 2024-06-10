@@ -4,12 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 function EditarUsuario () {
 
 const [usuario, setUsuario] = useState({
-    // dni: " ",
-    nombre: " ",
-    apellido: " ",
-    email: " ",
-    password: " ",
-    rol: " ",
+    // dni: "",
+    nombre: "",
+    apellido: "",
+    email: "",
+    password: "",
+    rol: "",
 });
 
 const { id } = useParams();
@@ -69,7 +69,7 @@ function mostrarFormulario() {
                 <label>Apellido:</label><br />
                 <input type="text" onChange={handleChange} value={usuario.apellido} placeholder="Apellido" name='apellido' /><br />
                 <label>Email:</label><br />
-                <input type="text" onChange={handleChange} value={usuario.email} placeholder="Email" name='email' /><br />
+                <input type="email" onChange={handleChange} value={usuario.email} placeholder="Email" name='email' /><br />
                 <label>Contraseña:</label><br />
                 <input type="password" onChange={handleChange} value={usuario.password} placeholder="Contraseña" name='password' /><br />
                 {/* <input type="text" onChange={handleChange} value={usuario.rol} placeholder="Rol" name='rol' /> */}

@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Inicio />} />
         {/* Inicio de rutas de usuarios */}
-        <Route path="/usuarios/registrarse" element={<CrearUsuario />} />
+        <Route path="/registrarse" element={<CrearUsuario />} />
         <Route path="/usuarios" element={<VerUsuarios />} />
         <Route path="/usuarios/:id" element={<VerUsuario />} />
         <Route path="/usuarios/editar-usuario/:id" element={<EditarUsuario />} />

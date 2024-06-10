@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
   <div className="container-fluid">
     <NavLink className="navbar-brand" to="/">Libreria</NavLink>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,10 +14,10 @@ function Navbar() {
           <NavLink className="nav-link" to="/">Inicio</NavLink>
         </li>
         <li className="nav-item">
-            <NavLink className="nav-link" to="/usuarios/registrarse">Registrarse</NavLink>
+            <NavLink className="nav-link" to="/usuarios">VerUsuarios</NavLink>
         </li>
         <li className="nav-item">
-            <NavLink className="nav-link" to="/usuarios">VerUsuarios</NavLink>
+            <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
         </li>
       </ul>
     </div>

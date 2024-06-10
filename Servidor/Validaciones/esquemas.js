@@ -10,4 +10,14 @@ const esquemaUsuario = Joi.object({
   activo: Joi.boolean(),
 });
 
-module.exports = { esquemaUsuario };
+const esquemaEditarUsuario = Joi.object({
+  dni: Joi.number(),
+  nombre: Joi.string().required(),
+  apellido: Joi.string().required(),
+  email: Joi.string().email().required(),
+  rol: Joi.string(),
+  password: Joi.string().required(),
+  activo: Joi.boolean(),
+});
+
+module.exports = { esquemaUsuario, esquemaEditarUsuario };

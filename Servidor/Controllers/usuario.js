@@ -34,9 +34,8 @@ const verUsuarios = async (req, res) => {
 
 const editarUsuario = async (req, res) => {
   const { id } = req.params;
-  const { dni, nombre, apellido, email, password, rol, activo } = req.body;
+  const { nombre, apellido, email, password, rol, activo } = req.body;
   const usuario = await Usuario.findByIdAndUpdate(id, {
-    dni,
     nombre,
     apellido,
     email,

@@ -11,10 +11,16 @@ const {
   errorLogin,
 } = require("../Controllers/usuario");
 const { catchAsync } = require("../middlewares");
-const { validarUsuario } = require("../Validaciones/validaciones");
+const {
+  validarUsuario,
+  validarEditarUsuario,
+} = require("../Validaciones/validaciones");
 const passport = require("passport");
 
-routerUsuarios.route("/").get(verUsuarios).post(validarUsuario, crearUsuario);
+routerUsuarios
+  .route("/")
+  .get(catchAsync(verUsuarios))
+  .post(validarUsuario, catchAsync(crearUsuario));
 
 routerUsuarios.post(
   "/iniciar-sesion",
@@ -30,8 +36,8 @@ routerUsuarios.post("/error-login", catchAsync(errorLogin));
 
 routerUsuarios
   .route("/:id")
-  .get(buscarUsuario)
-  .put(editarUsuario)
-  .delete(eliminarUsuario);
+  .get(catchAsync(buscarUsuario))
+  .put(validarEditarUsuario, catchAsync(editarUsuario))
+  .delete(catchAsync(eliminarUsuario));
 
 module.exports = routerUsuarios;

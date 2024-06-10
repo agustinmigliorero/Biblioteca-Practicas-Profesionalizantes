@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alerta from "../../componentes/Alerta.jsx";
 
 function CrearUsuario () {
     const [usuario, setUsuario] = useState({
@@ -10,6 +11,8 @@ function CrearUsuario () {
         password: "",
         // activo: false,
     });
+
+    const [alerta, setAlerta] = useState({mensaje: "", error: false});
     
     const navigate = useNavigate();
 
@@ -35,10 +38,14 @@ function CrearUsuario () {
         }),
     })
     .then((response) => response.json())
-    .then(() => {
+    .then((data) => {
         //console.log(data);
-        navigate("/");
-    });
+        if (data.logeado) {
+            navigate("/");
+          } else if (data.error) {
+            setAlerta({error: true, mensaje: "Error al crear el usuario, revisa todos los campos."});
+          }
+    })
 
     }
         return (
@@ -53,13 +60,15 @@ function CrearUsuario () {
                     <label>Apellido:</label><br />
                     <input type="text" onChange={handleChange} value={usuario.apellido} placeholder="Apellido" name="apellido"/><br />
                     <label>Email:</label><br />
-                    <input type="text" onChange={handleChange} value={usuario.email} placeholder="Email" name="email"/><br />
+                    <input type="email" onChange={handleChange} value={usuario.email} placeholder="Email" name="email"/><br />
                     <label>Contraseña:</label><br />
                     <input type="password" onChange={handleChange} value={usuario.password} placeholder="Password" name="password" /><br />
                     {/* <input type="text" onChange={handleChange} value={usuario.rol} placeholder="Rol" name="rol"/> */}
                     {/* <input type="checkbox" onChange={handleChange} value={usuario.activo} name="activo"/> */}
                     <input type="submit" value="Enviar" />
                 </form>
+
+                {alerta.error ? <Alerta alerta={alerta} /> : ""}
                 </center>
            </>
         );
