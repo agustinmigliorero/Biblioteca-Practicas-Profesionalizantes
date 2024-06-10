@@ -2,14 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../../componentes/Alerta.jsx";
 
-function CrearUsuario () {
+function IniciarSesion () {
     const [usuario, setUsuario] = useState({
         dni: "",
-        nombre: "",
-        apellido: "",
-        email: "",
         password: "",
-        // activo: false,
     });
 
     const [alerta, setAlerta] = useState({mensaje: "", error: false});
@@ -24,16 +20,14 @@ function CrearUsuario () {
 
    const enviarFormulario = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/usuarios", {
+    fetch("http://localhost:3000/usuarios/iniciar-sesion", {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            dni: usuario.dni,
-            nombre: usuario.nombre,
-            apellido: usuario.apellido,
-            email: usuario.email,
+            username: usuario.dni,
             password: usuario.password,
         }),
     })
@@ -43,7 +37,7 @@ function CrearUsuario () {
         if (data.logeado) {
             navigate("/");
           } else if (data.error) {
-            setAlerta({error: true, mensaje: "Error al crear el usuario, revisa todos los campos."});
+            setAlerta({error: true, mensaje: "Error al iniciar sesion, revisa todos los campos."});
           }
     })
 
@@ -51,16 +45,10 @@ function CrearUsuario () {
         return (
            <>
                 <center>
-                <h1>Crear usuario</h1>
+                <h1>Iniciar Sesion</h1>
                 <form onSubmit={enviarFormulario}>
                     <label>DNI:</label><br />
                     <input type="number" onChange={handleChange} value={usuario.dni} placeholder="DNI" name="dni"/><br />
-                    <label>Nombre:</label><br />
-                    <input type="text" onChange={handleChange} value={usuario.nombre} placeholder="Nombre" name="nombre"/><br />  
-                    <label>Apellido:</label><br />
-                    <input type="text" onChange={handleChange} value={usuario.apellido} placeholder="Apellido" name="apellido"/><br />
-                    <label>Email:</label><br />
-                    <input type="email" onChange={handleChange} value={usuario.email} placeholder="Email" name="email"/><br />
                     <label>Contraseña:</label><br />
                     <input type="password" onChange={handleChange} value={usuario.password} placeholder="Password" name="password" /><br />
                     {/* <input type="text" onChange={handleChange} value={usuario.rol} placeholder="Rol" name="rol"/> */}
@@ -74,4 +62,4 @@ function CrearUsuario () {
         );
 }
 
-export default CrearUsuario;
+export default IniciarSesion;
