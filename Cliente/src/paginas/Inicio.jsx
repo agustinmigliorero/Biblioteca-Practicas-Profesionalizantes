@@ -5,7 +5,7 @@ function PaginaPrincipal () {
     return (
         <>
             <h1>Página principal</h1>
-            <p>Pagina de ejemplo</p>
+            <p>Pagina de prueba de libreria</p>
         </>
     )
 }

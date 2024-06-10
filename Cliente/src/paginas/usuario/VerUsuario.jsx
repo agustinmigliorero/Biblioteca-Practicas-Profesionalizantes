@@ -24,6 +24,7 @@ useEffect(() => {
 
             <p>DNI: {usuario.dni}</p>
             <p>Nombre: {usuario.nombre}</p>
+            <p>Apellido: {usuario.apellido}</p>
             <p>Email: {usuario.email}</p>
             <p>Rol: {usuario.rol}</p>
             <p>Activo: {usuario.activo ? "Si" : "No" }</p>

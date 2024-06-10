@@ -6,6 +6,7 @@ import VerUsuario from './paginas/usuario/VerUsuario.jsx';
 import EditarUsuario from './paginas/usuario/EditarUsuario.jsx';
 import Inicio from './paginas/Inicio.jsx'
 import { Route, Routes, Navigate } from 'react-router-dom';
+import Navbar from './componentes/Navbar.jsx'
 
 
 
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <>
-
+      <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Inicio />} />
         {/* Inicio de rutas de usuarios */}

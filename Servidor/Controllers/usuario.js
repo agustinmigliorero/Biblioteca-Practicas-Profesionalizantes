@@ -1,10 +1,11 @@
 const Usuario = require("../Models/usuario");
 
 const crearUsuario = async (req, res) => {
-  const { dni, nombre, email, rol, activo, password } = req.body;
+  const { dni, nombre, apellido, email, rol, activo, password } = req.body;
   const usuario = new Usuario({
     dni,
     nombre,
+    apellido,
     email,
     rol,
     activo,
@@ -22,7 +23,7 @@ const crearUsuario = async (req, res) => {
   });
 };
 
-const verUsuario = async (req, res) => {
+const buscarUsuario = async (req, res) => {
   const { id } = req.params;
   const usuario = await Usuario.findById(id);
   res.json(usuario);
@@ -35,11 +36,13 @@ const verUsuarios = async (req, res) => {
 
 const editarUsuario = async (req, res) => {
   const { id } = req.params;
-  const { dni, nombre, email, rol, activo } = req.body;
+  const { dni, nombre, apellido, email, password, rol, activo } = req.body;
   const usuario = await Usuario.findByIdAndUpdate(id, {
     dni,
     nombre,
+    apellido,
     email,
+    password,
     rol,
     activo,
   });
@@ -58,6 +61,8 @@ const loginUsuario = async (req, res) => {
   const usuario = await Usuario.findOne({ username });
   res.json({ logeado: true, usuario: usuario });
 };
+
+// funcion para recuperar contraseña del usuario
 
 const desconectarUsuario = async (req, res) => {
   req.logout(function (err) {
@@ -82,7 +87,7 @@ const errorLogin = async (req, res) => {
 
 module.exports = {
   crearUsuario,
-  verUsuario,
+  buscarUsuario,
   verUsuarios,
   editarUsuario,
   eliminarUsuario,

@@ -1,7 +1,7 @@
 const routerUsuarios = require("express").Router();
 const {
   crearUsuario,
-  verUsuario,
+  buscarUsuario,
   verUsuarios,
   editarUsuario,
   eliminarUsuario,
@@ -30,7 +30,7 @@ routerUsuarios.post("/error-login", catchAsync(errorLogin));
 
 routerUsuarios
   .route("/:id")
-  .get(verUsuario)
+  .get(buscarUsuario)
   .put(editarUsuario)
   .delete(eliminarUsuario);
 

@@ -19,11 +19,12 @@ function MostrarTabla() {
       <tr key={index}>
         <td>{usuario.dni}</td>
         <td>{usuario.nombre}</td>
+        <td>{usuario.apellido}</td>
         <td>{usuario.email}</td>
         <td>{usuario.rol}</td>
         <td>{usuario.activo ? "Si" : "No"}</td>
         <td>
-          <Link className="btn btn-primary" to={`/usuarios/${usuario._id}`}>
+          <Link className="btn btn-success" to={`/usuarios/${usuario._id}`}>
             Ver
           </Link>
           <Link
@@ -46,6 +47,7 @@ function MostrarTabla() {
           <tr>
             <th>DNI</th>
             <th>Nombre</th>
+            <th>Apellido</th>
             <th>Email</th>
             <th>Rol</th>
             <th>Activo</th>
