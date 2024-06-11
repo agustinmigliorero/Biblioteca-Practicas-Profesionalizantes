@@ -1,5 +1,6 @@
 const { esquemaUsuario, esquemaEditarUsuario } = require("./esquemas");
 
+//VALIDACION DE USUARIOS
 const validarUsuario = (req, res, next) => {
   const { error } = esquemaUsuario.validate(req.body);
   if (error) {

@@ -1,5 +1,6 @@
 const Joi = require("joi");
 
+//ESQUEMA DE VALIDACION DE USUARIOS
 const esquemaUsuario = Joi.object({
   dni: Joi.number().required(),
   nombre: Joi.string().required(),

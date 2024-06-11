@@ -22,6 +22,7 @@ routerUsuarios
   .get(catchAsync(verUsuarios))
   .post(validarUsuario, catchAsync(crearUsuario));
 
+// METODO Y RUTA PARA INICIAR SESION
 routerUsuarios.post(
   "/iniciar-sesion",
   passport.authenticate("local", {
