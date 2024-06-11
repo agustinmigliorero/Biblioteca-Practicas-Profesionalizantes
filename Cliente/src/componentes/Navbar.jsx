@@ -1,7 +1,37 @@
 import { NavLink } from "react-router-dom";
 
 function Navbar({ usuarioLogeado }) {
-  console.log(usuarioLogeado)
+
+  const linksConectado = () => {
+    if (usuarioLogeado.logeado) {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/usuarios/${usuarioLogeado.usuario._id}`}>Ver Perfil</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/desconectarse`}>Desconectarse</NavLink>
+          </li>
+        </>
+      )
+    }
+  }
+
+  const linksDesconectado = () => {
+    if (!usuarioLogeado.logeado) {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/iniciar-sesion">Iniciar Sesion</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
+          </li>
+        </>
+      )
+    }
+  }
+  
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           
@@ -18,17 +48,15 @@ function Navbar({ usuarioLogeado }) {
         <li className="nav-item">
             <NavLink className="nav-link" to="/usuarios">VerUsuarios</NavLink>
         </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
-        </li>
-        <li className="nav-item">
-            <NavLink className="nav-link" to="/iniciar-sesion">Iniciar Sesion</NavLink>
-        </li>
+        
+        
+      </ul>
+      <ul className="navbar-nav">
+        {linksConectado()}
+        {linksDesconectado()}
       </ul>
     </div>
   </div>
-
-  {/* {usuarioLogeado.logeado ? usuarioLogeado.usuario.nombre + " " + usuarioLogeado.usuario.apellido : ""} */}
 </nav>
     );
 }

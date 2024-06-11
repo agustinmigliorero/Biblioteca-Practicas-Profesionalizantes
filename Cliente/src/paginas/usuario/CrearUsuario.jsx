@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../../componentes/Alerta.jsx";
 
-function CrearUsuario () {
+function CrearUsuario ({setUsuarioLogeado}) {
     const [usuario, setUsuario] = useState({
         dni: "",
         nombre: "",
@@ -41,6 +41,7 @@ function CrearUsuario () {
     .then((data) => {
         //console.log(data);
         if (data.logeado) {
+            setUsuarioLogeado(data);
             navigate("/");
           } else if (data.error) {
             setAlerta({error: true, mensaje: "Error al crear el usuario, revisa todos los campos."});

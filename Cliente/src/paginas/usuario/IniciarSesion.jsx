@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../../componentes/Alerta.jsx";
 
-function IniciarSesion () {
+function IniciarSesion ( { setUsuarioLogeado } ) {
     const [usuario, setUsuario] = useState({
         dni: "",
         password: "",
@@ -35,6 +35,7 @@ function IniciarSesion () {
     .then((data) => {
         //console.log(data);
         if (data.logeado) {
+            setUsuarioLogeado(data);
             navigate("/");
           } else if (data.error) {
             setAlerta({error: true, mensaje: "Error al iniciar sesion, revisa todos los campos."});
