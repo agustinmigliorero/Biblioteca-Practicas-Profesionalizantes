@@ -57,7 +57,7 @@ function IniciarSesion ( { setUsuarioLogeado } ) {
                     <input type="submit" value="Enviar" />
                 </form>
 
-                <div style={{margin: "auto", width: "50%"}}>{alerta.error ? <Alerta alerta={alerta} /> : ""}</div>
+                <div >{alerta.error ? <Alerta alerta={alerta} /> : ""}</div>
                 </center>
            </>
         );

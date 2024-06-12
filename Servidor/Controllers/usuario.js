@@ -14,7 +14,9 @@ const crearUsuario = async (req, res) => {
 
   const nuevoUsuario = await Usuario.register(usuario, password);
 
-  req.login(nuevoUsuario, (err) => {
+  const usuarioCreado = await Usuario.findOne({ username: dni });
+
+  req.login(usuarioCreado, (err) => {
     if (err) {
       return next(err);
     }

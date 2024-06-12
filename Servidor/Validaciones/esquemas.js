@@ -17,7 +17,7 @@ const esquemaEditarUsuario = Joi.object({
   apellido: Joi.string().required(),
   email: Joi.string().email().required(),
   rol: Joi.string(),
-  password: Joi.string().required(),
+  password: Joi.string(),
   activo: Joi.boolean(),
 });
 

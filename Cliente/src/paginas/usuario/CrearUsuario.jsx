@@ -29,6 +29,7 @@ function CrearUsuario ({setUsuarioLogeado}) {
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
             dni: usuario.dni,
             nombre: usuario.nombre,
@@ -39,9 +40,9 @@ function CrearUsuario ({setUsuarioLogeado}) {
     })
     .then((response) => response.json())
     .then((data) => {
-        //console.log(data);
+        console.log(data);
+        setUsuarioLogeado(data);
         if (data.logeado) {
-            setUsuarioLogeado(data);
             navigate("/");
           } else if (data.error) {
             setAlerta({error: true, mensaje: "Error al crear el usuario, revisa todos los campos."});
@@ -69,7 +70,7 @@ function CrearUsuario ({setUsuarioLogeado}) {
                     <input type="submit" value="Enviar" />
                 </form>
 
-                <div style={{margin: "auto", width: "50%"}}>{alerta.error ? <Alerta alerta={alerta} /> : ""}</div>
+                <div>{alerta.error ? <Alerta alerta={alerta} /> : ""}</div>
                 </center>
            </>
         );

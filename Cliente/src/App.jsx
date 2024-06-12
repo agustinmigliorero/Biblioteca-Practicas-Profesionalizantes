@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import CrearUsuario from './paginas/usuario/CrearUsuario.jsx';
 import VerUsuarios from './paginas/usuario/VerUsuarios.jsx';
@@ -11,7 +10,42 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './componentes/Navbar.jsx'
 import { useAuth } from "./UseAuth.jsx";
 
+function RutaProtegidaLogeado({ children }) {
+  const { usuarioLogeado, cargando } = useAuth();
+  console.log(usuarioLogeado, cargando);
+  if (cargando) {
+    return "";
+  }
+  return usuarioLogeado.logeado ? (
+    children
+  ) : (
+    <Navigate to="/" state={{ alerta: "No estas logeado!" }} />
+  );
+}
 
+function RutaProtegidaAdministrativo({ children }) {
+  const { usuarioLogeado, cargando } = useAuth();
+  if (cargando) {
+    return "";
+  }
+  return usuarioLogeado.logeado && usuarioLogeado.usuario.rol === "Administrativo" ? (
+    children
+  ) : (
+    <Navigate to="/" state={{ alerta: "No eres administrador!" }} />
+  );
+}
+
+function RutaProtegidaBibliotecario({ children }) {
+  const { usuarioLogeado, cargando } = useAuth();
+  if (cargando) {
+    return "";
+  }
+  return usuarioLogeado.logeado && usuarioLogeado.usuario.rol === "Bibliotecario" ? (
+    children
+  ) : (
+    <Navigate to="/" state={{ alerta: "No eres bibliotecario!" }} />
+  );
+}
 
 function App() {
   
@@ -28,7 +62,7 @@ function App() {
         <Route path="/desconectarse" element={<Desconectarse setUsuarioLogeado={setUsuarioLogeado} />} />
         <Route path="/usuarios" element={<VerUsuarios />} />
         <Route path="/usuarios/:id" element={<VerUsuario />} />
-        <Route path="/usuarios/editar-usuario/:id" element={<EditarUsuario />} />
+        <Route path="/usuarios/editar-usuario/:id" element={<RutaProtegidaLogeado><EditarUsuario usuarioLogeado={usuarioLogeado} /></RutaProtegidaLogeado>} />
         {/* Fin de rutas de usuarios */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
