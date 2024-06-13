@@ -7,6 +7,8 @@ const session = require("express-session");
 const LocalStrategy = require("passport-local");
 const Usuario = require("./Models/usuario");
 const routerUsuarios = require("./Routes/usuario");
+const routerLibro = require("./Routes/libro");
+const routerComentario = require("./Routes/comentario");
 
 //db conexion
 mongoose.connect(process.env.MONGO_URL_CONNECTION, {
@@ -59,6 +61,8 @@ passport.deserializeUser(Usuario.deserializeUser());
 
 //rutas
 app.use("/usuarios", routerUsuarios);
+app.use("/libros", routerLibro);
+app.use("/comentarios", routerComentario);
 //rutas
 
 //error handler
