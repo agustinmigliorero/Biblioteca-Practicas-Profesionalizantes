@@ -6,7 +6,7 @@ const {
   verComentario,
 } = require("../Controllers/comentario");
 
-const catchAsync = require("../middlewares");
+const { catchAsync } = require("../middlewares");
 
 const {
   validarComentario,

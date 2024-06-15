@@ -7,7 +7,7 @@ const {
   eliminarLibro,
 } = require("../Controllers/libro");
 
-const catchAsync = require("../middlewares");
+const { catchAsync } = require("../middlewares");
 
 const {
   validarLibro,

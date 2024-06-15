@@ -3,6 +3,8 @@ const {
   esquemaEditarUsuario,
   esquemaLibro,
   esquemaModificarLibro,
+  esquemaComentario,
+  esquemaModificarComentario,
 } = require("./esquemas");
 
 //VALIDACION DE USUARIOS
