@@ -21,4 +21,50 @@ const esquemaEditarUsuario = Joi.object({
   activo: Joi.boolean(),
 });
 
-module.exports = { esquemaUsuario, esquemaEditarUsuario };
+const esquemaLibro = Joi.object({
+  //idLibro: Joi.number(),
+  titulo: Joi.string().required(),
+  autor: Joi.string().required(),
+  categoria: Joi.string().required(),
+  copiaVirtual: Joi.string().required(),
+  copiasLibro: Joi.number().required(),
+  copiasDisponibles: Joi.number().required(),
+  comentarios: Joi.array(),
+});
+
+const esquemaModificarLibro = Joi.object({
+  //idLibro: Joi.number(),
+  titulo: Joi.string(),
+  autor: Joi.string(),
+  categoria: Joi.string(),
+  copiaVirtual: Joi.string(),
+  copiasLibro: Joi.number().required(),
+  copiasDisponibles: Joi.number().required(),
+  comentarios: Joi.array(),
+});
+
+//ESQUEMA DE VALIDACION DE COMENTARIOS
+const esquemaComentario = Joi.object({
+  //idComentario: Joi.number(),
+  idLibro: Joi.number().required(),
+  documento: Joi.number().required(),
+  textoComentario: Joi.string().required(),
+  puntuacion: Joi.number().required(),
+});
+
+const esquemaModificarComentario = Joi.object({
+  //idComentario: Joi.number(),
+  idLibro: Joi.number().required(),
+  documento: Joi.number().required(),
+  textoComentario: Joi.string().required(),
+  puntuacion: Joi.number().required(),
+});
+
+module.exports = {
+  esquemaUsuario,
+  esquemaEditarUsuario,
+  esquemaLibro,
+  esquemaModificarLibro,
+  esquemaComentario,
+  esquemaModificarComentario,
+};

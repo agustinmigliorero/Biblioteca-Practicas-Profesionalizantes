@@ -7,12 +7,22 @@ const {
   eliminarLibro,
 } = require("../Controllers/libro");
 
-routerLibro.route("/").get(verLibros).post(crearLibro);
+const catchAsync = require("../middlewares");
+
+const {
+  validarLibro,
+  validarModificarLibro,
+} = require("../Validaciones/validaciones");
+
+routerLibro
+  .route("/")
+  .get(verLibros)
+  .post(validarLibro, catchAsync(crearLibro));
 
 routerLibro
   .route("/:id")
   .get(buscarLibro)
-  .put(modificarLibro)
+  .put(validarModificarLibro, catchAsync(modificarLibro))
   .delete(eliminarLibro);
 
 module.exports = routerLibro;

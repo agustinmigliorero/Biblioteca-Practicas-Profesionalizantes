@@ -6,12 +6,21 @@ const {
   verComentario,
 } = require("../Controllers/comentario");
 
-routerComentario.route("/").post(crearComentario);
+const catchAsync = require("../middlewares");
+
+const {
+  validarComentario,
+  validarModificarComentario,
+} = require("../Validaciones/validaciones");
+
+routerComentario
+  .route("/")
+  .post(validarComentario, catchAsync(crearComentario));
 
 routerComentario
   .route("/:id")
   .get(verComentario)
-  .put(modificarComentario)
+  .put(validarModificarComentario, catchAsync(modificarComentario))
   .delete(eliminarComentario);
 
 module.exports = routerComentario;

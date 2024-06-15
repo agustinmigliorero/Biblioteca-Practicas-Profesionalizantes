@@ -12,10 +12,10 @@ const crearComentario = async (req, res) => {
     textoComentario,
     puntuacion,
   });
-  await Libro.findByIdAndUpdate(comentario._id, {
+  await comentario.save();
+  await Libro.findByIdAndUpdate(idLibro, {
     $push: { comentarios: comentario._id },
   });
-  await comentario.save();
   res.json({ mensaje: "Comentario creado", comentario });
 };
 
