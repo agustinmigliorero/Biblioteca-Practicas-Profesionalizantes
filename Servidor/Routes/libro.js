@@ -16,13 +16,13 @@ const {
 
 routerLibro
   .route("/")
-  .get(verLibros)
+  .get(catchAsync(verLibros))
   .post(validarLibro, catchAsync(crearLibro));
 
 routerLibro
   .route("/:id")
-  .get(buscarLibro)
+  .get(catchAsync(buscarLibro))
   .put(validarModificarLibro, catchAsync(modificarLibro))
-  .delete(eliminarLibro);
+  .delete(catchAsync(eliminarLibro));
 
 module.exports = routerLibro;

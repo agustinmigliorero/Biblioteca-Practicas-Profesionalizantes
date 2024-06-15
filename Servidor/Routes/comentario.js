@@ -19,8 +19,8 @@ routerComentario
 
 routerComentario
   .route("/:id")
-  .get(verComentario)
+  .get(catchAsync(verComentario))
   .put(validarModificarComentario, catchAsync(modificarComentario))
-  .delete(eliminarComentario);
+  .delete(catchAsync(eliminarComentario));
 
 module.exports = routerComentario;

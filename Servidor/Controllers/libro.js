@@ -18,7 +18,7 @@ const crearLibro = async (req, res) => {
     categoria,
     copiaVirtual,
     copiasLibro,
-    copiasDisponibles,
+    //copiasDisponibles,
   });
   await libro.save();
   res.json({ mensaje: "Libro creado" });
@@ -34,17 +34,31 @@ const eliminarLibro = async (req, res) => {
 //FUNCION PARA MODIFICAR UN LIBRO (CONSULTAR AL DISEÑADOR SOBRE CAMBIOS A LA FUNCION)
 const modificarLibro = async (req, res) => {
   const { id } = req.params;
-  const { copiasLibro, copiasDisponibles } = req.body;
-  const libro = await Libro.findByIdAndUpdate(id, {
+  const {
+    titulo,
+    autor,
+    categoria,
+    copiaVirtual,
     copiasLibro,
-    copiasDisponibles,
+    //copiasDisponibles,
+  } = req.body;
+  const libro = await Libro.findByIdAndUpdate(id, {
+    titulo,
+    autor,
+    categoria,
+    copiaVirtual,
+    copiasLibro,
+    //copiasDisponibles,
   });
   res.json({ mensaje: "Libro modificado", libro });
 };
-//FUNCION PARA BUSCAR LIBROS
+//FUNCION PARA BUSCAR LIBROS POR ID, TITULO, AUTOR Y CATEGORIA
 const buscarLibro = async (req, res) => {
   const { id } = req.params;
-  const libro = await Libro.findById(id);
+  const libro = await Libro.findById(id).populate({
+    path: "comentarios",
+    populate: { path: "documento" },
+  });
   res.json(libro);
 };
 

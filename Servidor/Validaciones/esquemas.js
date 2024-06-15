@@ -28,7 +28,7 @@ const esquemaLibro = Joi.object({
   categoria: Joi.string().required(),
   copiaVirtual: Joi.string().required(),
   copiasLibro: Joi.number().required(),
-  copiasDisponibles: Joi.number().required(),
+  //copiasDisponibles: Joi.number().required(),
   comentarios: Joi.array(),
 });
 
@@ -39,23 +39,23 @@ const esquemaModificarLibro = Joi.object({
   categoria: Joi.string(),
   copiaVirtual: Joi.string(),
   copiasLibro: Joi.number().required(),
-  copiasDisponibles: Joi.number().required(),
+  //copiasDisponibles: Joi.number().required(),
   comentarios: Joi.array(),
 });
 
 //ESQUEMA DE VALIDACION DE COMENTARIOS
 const esquemaComentario = Joi.object({
   //idComentario: Joi.number(),
-  idLibro: Joi.number().required(),
-  documento: Joi.number().required(),
+  idLibro: Joi.string().required(),
+  documento: Joi.string().required(),
   textoComentario: Joi.string().required(),
   puntuacion: Joi.number().required(),
 });
 
 const esquemaModificarComentario = Joi.object({
   //idComentario: Joi.number(),
-  idLibro: Joi.number().required(),
-  documento: Joi.number().required(),
+  idLibro: Joi.string().required(),
+  documento: Joi.string().required(),
   textoComentario: Joi.string().required(),
   puntuacion: Joi.number().required(),
 });
