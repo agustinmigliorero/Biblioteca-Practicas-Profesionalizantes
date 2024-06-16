@@ -48,7 +48,12 @@ function Navbar({ usuarioLogeado }) {
         <li className="nav-item">
             <NavLink className="nav-link" to="/usuarios">VerUsuarios</NavLink>
         </li>
-        
+        <li className="nav-item">
+            <NavLink className="nav-link" to="/registrar-libro">Registrar Libros</NavLink>
+        </li>
+        <li>
+            <NavLink className="nav-link" to="/libros">Ver Libros</NavLink>
+        </li>
         
       </ul>
       <ul className="navbar-nav">

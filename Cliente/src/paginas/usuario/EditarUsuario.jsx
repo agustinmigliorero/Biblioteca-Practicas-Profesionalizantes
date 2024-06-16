@@ -102,4 +102,4 @@ function mostrarFormulario() {
     )
 }
 
-export default EditarUsuario
+export default EditarUsuario;

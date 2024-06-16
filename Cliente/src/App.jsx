@@ -5,6 +5,10 @@ import VerUsuario from './paginas/usuario/VerUsuario.jsx';
 import EditarUsuario from './paginas/usuario/EditarUsuario.jsx';
 import IniciarSesion from './paginas/usuario/IniciarSesion.jsx';
 import Desconectarse from './paginas/usuario/Desconectarse.jsx';
+import CrearLibro from './paginas/libro/CrearLibro.jsx';
+import VerLibros from './paginas/libro/VerLibros.jsx';
+import VerLibro from './paginas/libro/VerLibro.jsx';
+import EditarLibro from './paginas/libro/EditarLibro.jsx';
 import Inicio from './paginas/Inicio.jsx'
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './componentes/Navbar.jsx'
@@ -64,6 +68,12 @@ function App() {
         <Route path="/usuarios/:id" element={<VerUsuario />} />
         <Route path="/usuarios/editar-usuario/:id" element={<RutaProtegidaLogeado><EditarUsuario usuarioLogeado={usuarioLogeado} /></RutaProtegidaLogeado>} />
         {/* Fin de rutas de usuarios */}
+        {/* Inicio de rutas de libros */}
+        <Route path="/registrar-libro" element={<CrearLibro />} />
+        <Route path="/libros" element={<VerLibros/>} />
+        <Route path="/libros/:id" element={<VerLibro/>} />
+        <Route path="/libros/editar-libro/:id" element={<EditarLibro/>}/>
+        {/* Fin de rutas de libros */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
