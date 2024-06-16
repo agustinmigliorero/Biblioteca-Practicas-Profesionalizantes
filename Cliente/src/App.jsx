@@ -69,10 +69,10 @@ function App() {
         <Route path="/usuarios/editar-usuario/:id" element={<RutaProtegidaLogeado><EditarUsuario usuarioLogeado={usuarioLogeado} /></RutaProtegidaLogeado>} />
         {/* Fin de rutas de usuarios */}
         {/* Inicio de rutas de libros */}
-        <Route path="/registrar-libro" element={<CrearLibro />} />
+        <Route path="/registrar-libro" element={<RutaProtegidaAdministrativo><CrearLibro usuarioLogeado={usuarioLogeado} /></RutaProtegidaAdministrativo>} />
         <Route path="/libros" element={<VerLibros/>} />
         <Route path="/libros/:id" element={<VerLibro/>} />
-        <Route path="/libros/editar-libro/:id" element={<EditarLibro/>}/>
+        <Route path="/libros/editar-libro/:id" element={<RutaProtegidaAdministrativo><EditarLibro usuarioLogeado={usuarioLogeado} /></RutaProtegidaAdministrativo>}/>
         {/* Fin de rutas de libros */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
