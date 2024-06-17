@@ -12,6 +12,7 @@ import EditarLibro from "./paginas/libro/EditarLibro.jsx";
 import Inicio from "./paginas/Inicio.jsx";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./componentes/Navbar.jsx";
+import Footer from "./componentes/Footer.jsx";
 import { useAuth } from "./UseAuth.jsx";
 
 function RutaProtegidaLogeado({ children }) {
@@ -57,7 +58,7 @@ function App() {
   const { usuarioLogeado, setUsuarioLogeado } = useAuth();
 
   return (
-    <>
+    <div className="d-flex flex-column vh-100">
       <Navbar usuarioLogeado={usuarioLogeado}></Navbar>
       <Routes>
         <Route path="/" element={<Inicio />} />
@@ -110,7 +111,8 @@ function App() {
         {/* Fin de rutas de libros */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </>
+      <Footer></Footer>
+    </div>
   );
 }
 

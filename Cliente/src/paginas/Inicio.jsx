@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Alerta from "../componentes/Alerta.jsx";
+import fondoPagina from "../assets/fondo_paginas.svg";
 
-function PaginaPrincipal () {
-    const { state } = useLocation();
+function PaginaPrincipal() {
+  const { state } = useLocation();
 
-    return (
-        <>
-            {state && state.alerta && <Alerta alerta={{mensaje: state.alerta}} />}
-            <center style={{marginTop: "5%"}}>
-            <h1 style={{color: "rgb(10, 10, 150)", fontFamily: "Comic Sans"}}>M.A.C.E.D</h1>
-            <h4 style={{color: "rgb(10, 10, 150)", fontFamily: "Comic Sans"}}>Inspirando mentes, una pagina a la vez</h4>
-            </center>
-        </>
-    )
+  return (
+    <>
+      {state && state.alerta && <Alerta alerta={{ mensaje: state.alerta }} />}
+      <center style={{ marginTop: "3%" }}>
+        <img src={fondoPagina} style={{ width: "30%" }} alt="fondo_pagina" />
+      </center>
+    </>
+  );
 }
 
 export default PaginaPrincipal;
