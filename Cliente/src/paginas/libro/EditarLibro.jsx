@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Alerta from "../../componentes/Alerta";
 
 function EditarLibro() {
   const [libro, setLibro] = useState({});
   const { id } = useParams();
+  const [alerta, setAlerta] = useState({ mensaje: "", error: false });
 
   const navigate = useNavigate();
 
@@ -41,68 +43,79 @@ function EditarLibro() {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate("/libros/" + id);
+        if (data.error) {
+          setAlerta({
+            error: true,
+            mensaje: "Error al editar el libro, revise los campos",
+          });
+        } else {
+          navigate("/libros");
+        }
       });
   };
 
   function mostrarFormulario() {
     return (
       <>
-        <h1>Editar libro</h1>
-        <form onSubmit={enviarFormulario}>
-          <label>Titulo:</label>
-          <br />
-          <input
-            type="text"
-            onChange={handleChange}
-            value={libro.titulo}
-            name="titulo"
-            placeholder="Titulo"
-          />
-          <br />
-          <label>Autor:</label>
-          <br />
-          <input
-            type="text"
-            onChange={handleChange}
-            value={libro.autor}
-            name="autor"
-            placeholder="Autor"
-          />
-          <br />
-          <label>Categoria:</label>
-          <br />
-          <input
-            type="text"
-            onChange={handleChange}
-            value={libro.categoria}
-            name="categoria"
-            placeholder="Categoria"
-          />
-          <br />
-          <label>Copia Virtual:</label>
-          <br />
-          <input
-            type="text"
-            onChange={handleChange}
-            value={libro.copiaVirtual}
-            name="copiaVirtual"
-            placeholder="URL de la Copia Virtual"
-          />
-          <br />
-          <label>Copias Libro:</label>
-          <br />
-          <input
-            type="number"
-            onChange={handleChange}
-            value={libro.copiasLibro}
-            name="copiasLibro"
-            placeholder="Copias del Libro"
-          />
-          <br />
+        <center>
+          <h1>Editar libro</h1>
 
-          <input type="submit" value="Enviar" />
-        </form>
+          <form onSubmit={enviarFormulario}>
+            <label>Titulo:</label>
+            <br />
+            <input
+              type="text"
+              onChange={handleChange}
+              value={libro.titulo}
+              name="titulo"
+              placeholder="Titulo"
+            />
+            <br />
+            <label>Autor:</label>
+            <br />
+            <input
+              type="text"
+              onChange={handleChange}
+              value={libro.autor}
+              name="autor"
+              placeholder="Autor"
+            />
+            <br />
+            <label>Categoria:</label>
+            <br />
+            <input
+              type="text"
+              onChange={handleChange}
+              value={libro.categoria}
+              name="categoria"
+              placeholder="Categoria"
+            />
+            <br />
+            <label>Copia Virtual:</label>
+            <br />
+            <input
+              type="text"
+              onChange={handleChange}
+              value={libro.copiaVirtual}
+              name="copiaVirtual"
+              placeholder="URL de la Copia Virtual"
+            />
+            <br />
+            <label>Copias Libro:</label>
+            <br />
+            <input
+              type="number"
+              onChange={handleChange}
+              value={libro.copiasLibro}
+              name="copiasLibro"
+              placeholder="Copias del Libro"
+            />
+            <br />
+
+            <input type="submit" value="Enviar" />
+          </form>
+          <div>{alerta.error ? <Alerta alerta={alerta} /> : ""}</div>
+        </center>
       </>
     );
   }

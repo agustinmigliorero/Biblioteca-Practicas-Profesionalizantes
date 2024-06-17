@@ -47,7 +47,8 @@ function RutaProtegidaBibliotecario({ children }) {
     return "";
   }
   return usuarioLogeado.logeado &&
-    usuarioLogeado.usuario.rol === "Bibliotecario" ? (
+    (usuarioLogeado.usuario.rol === "Bibliotecario" ||
+      usuarioLogeado.usuario.rol === "Administrativo") ? (
     children
   ) : (
     <Navigate to="/" state={{ alerta: "No eres bibliotecario!" }} />
@@ -90,9 +91,9 @@ function App() {
         <Route
           path="/registrar-libro"
           element={
-            <RutaProtegidaAdministrativo>
+            <RutaProtegidaBibliotecario>
               <CrearLibro usuarioLogeado={usuarioLogeado} />
-            </RutaProtegidaAdministrativo>
+            </RutaProtegidaBibliotecario>
           }
         />
         <Route path="/libros" element={<VerLibros />} />
@@ -103,9 +104,9 @@ function App() {
         <Route
           path="/libros/editar-libro/:id"
           element={
-            <RutaProtegidaAdministrativo>
+            <RutaProtegidaBibliotecario>
               <EditarLibro usuarioLogeado={usuarioLogeado} />
-            </RutaProtegidaAdministrativo>
+            </RutaProtegidaBibliotecario>
           }
         />
         {/* Fin de rutas de libros */}

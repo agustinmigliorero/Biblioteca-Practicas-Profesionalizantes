@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alerta from "../../componentes/Alerta";
 
 function CrearLibro() {
   const [libro, setLibro] = useState({
@@ -9,6 +10,8 @@ function CrearLibro() {
     copiaVirtual: "",
     copiasLibro: "",
   });
+
+  const [alerta, setAlerta] = useState({ mensaje: "", error: false });
 
   const navigate = useNavigate();
 
@@ -36,7 +39,14 @@ function CrearLibro() {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate("/libros");
+        if (data.error) {
+          setAlerta({
+            error: true,
+            mensaje: "Error al crear el libro, revise los campos",
+          });
+        } else {
+          navigate("/libros");
+        }
       });
   };
 
@@ -97,6 +107,7 @@ function CrearLibro() {
           <br />
           <input type="submit" value="Enviar" />
         </form>
+        {alerta.error ? <Alerta alerta={alerta} /> : ""}
       </center>
     </div>
   );

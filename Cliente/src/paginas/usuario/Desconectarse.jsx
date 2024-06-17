@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import fondoPagina from "../../assets/fondo_paginas.svg";
 
 function Desconectarse({ setUsuarioLogeado }) {
   async function desconectarUsuario() {
@@ -22,7 +23,10 @@ function Desconectarse({ setUsuarioLogeado }) {
 
   return (
     <>
-      <h1>Te desconectaste!</h1>
+      <center style={{ marginTop: "2%" }}>
+        <h1 className="mb-4">Te desconectaste!</h1>
+        <img src={fondoPagina} style={{ width: "30%" }} alt="fondo_pagina" />
+      </center>
     </>
   );
 }

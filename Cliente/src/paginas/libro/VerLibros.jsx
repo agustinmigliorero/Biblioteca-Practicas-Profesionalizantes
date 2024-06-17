@@ -17,7 +17,7 @@ function VerLibros() {
 
   const renderizarCards = () => {
     return libros.map((libro, index) => (
-      <div className="col-12 col-md-4 col-sm-6">
+      <div className="col-12 col-md-4 col-sm-6 mt-4">
         <center>
           <Card key={index} libro={libro} />
         </center>
@@ -28,7 +28,7 @@ function VerLibros() {
   return (
     <>
       <div className="container text-center">
-        <h1 className="text-center mt-4 mb-4">Libros</h1>
+        <h1 className="text-center mt-4 mb-3">Libros</h1>
         <div className="row justify-content-center">{renderizarCards()}</div>
       </div>
     </>

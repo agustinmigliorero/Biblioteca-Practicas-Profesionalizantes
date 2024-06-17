@@ -10,6 +10,7 @@ const schemaLibro = new Schema({
   copiasLibro: { type: Number },
   //copiasDisponibles: { type: Number },
   comentarios: [{ type: Schema.Types.ObjectId, ref: "Comentario" }], // array de comentarios
+  descripcion: { type: String },
 });
 
 module.exports = mongoose.model("Libro", schemaLibro);

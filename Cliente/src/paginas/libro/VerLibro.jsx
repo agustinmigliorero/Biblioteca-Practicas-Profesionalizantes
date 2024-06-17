@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import CrearComentario from "../../componentes/comentarios/CrearComentario";
+import Alerta from "../../componentes/Alerta";
 
 function VerLibro({ usuarioLogeado }) {
   const [libro, setLibro] = useState({
@@ -8,6 +9,8 @@ function VerLibro({ usuarioLogeado }) {
   });
 
   const { id } = useParams();
+
+  const [alerta, setAlerta] = useState({ mensaje: "", error: false });
 
   const [textoComentario, setTextoComentario] = useState("");
   const [puntuacionComentario, setPuntuacionComentario] = useState(5);
@@ -42,7 +45,21 @@ function VerLibro({ usuarioLogeado }) {
       }),
     })
       .then((res) => {
-        cargarLibro();
+        return res.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          setAlerta({
+            error: true,
+            mensaje: "Error al crear el comentario, revise los campos",
+          });
+        } else {
+          cargarLibro();
+          setAlerta({
+            error: false,
+            mensaje: "",
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -146,8 +163,22 @@ function VerLibro({ usuarioLogeado }) {
       }),
     })
       .then((res) => {
-        mostrarFormEditarComentario(idComentario, false);
-        cargarLibro();
+        return res.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          setAlerta({
+            error: true,
+            mensaje: "Error al editar el comentario, revise los campos",
+          });
+        } else {
+          mostrarFormEditarComentario(idComentario, false);
+          cargarLibro();
+          setAlerta({
+            error: false,
+            mensaje: "",
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -176,8 +207,9 @@ function VerLibro({ usuarioLogeado }) {
   function botonesBorrarYEditarLibro() {
     if (usuarioLogeado.usuario) {
       if (
-        usuarioLogeado.logeado &&
-        usuarioLogeado.usuario.rol === "Administrativo"
+        (usuarioLogeado.logeado &&
+          usuarioLogeado.usuario.rol === "Administrativo") ||
+        usuarioLogeado.usuario.rol === "Bibliotecario"
       ) {
         return (
           <>
@@ -246,6 +278,7 @@ function VerLibro({ usuarioLogeado }) {
         ) : (
           <Link to={"/iniciar-sesion"}>Inicia sesion para comentar!</Link>
         )}
+        {alerta.error ? <Alerta alerta={alerta} /> : ""}
         <ul>
           {libro.comentarios.map((comentario) => {
             return (
