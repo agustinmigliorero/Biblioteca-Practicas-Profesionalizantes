@@ -6,7 +6,6 @@ const Usuario = require("../Models/usuario");
 const crearComentario = async (req, res) => {
   const { idLibro, documento, textoComentario, puntuacion } = req.body;
   const comentario = new Comentario({
-    //idComentario,
     idLibro,
     documento,
     textoComentario,
@@ -14,6 +13,9 @@ const crearComentario = async (req, res) => {
   });
   await comentario.save();
   await Libro.findByIdAndUpdate(idLibro, {
+    $push: { comentarios: comentario._id },
+  });
+  await Usuario.findByIdAndUpdate(documento, {
     $push: { comentarios: comentario._id },
   });
   res.json({ mensaje: "Comentario creado", comentario });

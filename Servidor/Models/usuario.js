@@ -11,6 +11,7 @@ const usuarioSchema = new Schema(
     email: { type: String },
     rol: { default: "Estudiante", type: String },
     activo: { type: Boolean, default: false },
+    comentarios: [{ type: Schema.Types.ObjectId, ref: "Comentario" }],
   },
   {
     timestamps: true,

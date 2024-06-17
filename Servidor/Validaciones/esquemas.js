@@ -34,9 +34,9 @@ const esquemaLibro = Joi.object({
 
 const esquemaModificarLibro = Joi.object({
   //idLibro: Joi.number(),
-  titulo: Joi.string(),
-  autor: Joi.string(),
-  categoria: Joi.string(),
+  titulo: Joi.string().required(),
+  autor: Joi.string().required(),
+  categoria: Joi.string().required(),
   copiaVirtual: Joi.string(),
   copiasLibro: Joi.number().required(),
   //copiasDisponibles: Joi.number().required(),
@@ -54,8 +54,8 @@ const esquemaComentario = Joi.object({
 
 const esquemaModificarComentario = Joi.object({
   //idComentario: Joi.number(),
-  idLibro: Joi.string().required(),
-  documento: Joi.string().required(),
+  idLibro: Joi.string(),
+  documento: Joi.string(),
   textoComentario: Joi.string().required(),
   puntuacion: Joi.number().required(),
 });

@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import CrearComentario from "../../componentes/comentarios/CrearComentario";
 
 function VerLibro({ usuarioLogeado }) {
   const [libro, setLibro] = useState({
-    comentarios: [{ usuario: {}, editando: false }],
+    comentarios: [{ documento: {}, editando: false }],
   });
 
-  const [usuario, setUsuario] = useState({});
   const { id } = useParams();
 
-  // const [comentario, setComentario] = useState("");
-  // const [puntuacion, setPuntuacion] = useState(10);
+  const [textoComentario, setTextoComentario] = useState("");
+  const [puntuacionComentario, setPuntuacionComentario] = useState(5);
 
   async function cargarLibro() {
     const respuesta = await fetch(`http://localhost:3000/libros/${id}`);
@@ -29,7 +28,6 @@ function VerLibro({ usuarioLogeado }) {
   }, []);
 
   async function fetchCrearComentario(comentario, puntuacion) {
-    //console.log("Comentario: ", comentario, puntuacion);
     const response = await fetch("http://localhost:3000/comentarios", {
       method: "POST",
       headers: {
@@ -42,21 +40,249 @@ function VerLibro({ usuarioLogeado }) {
         textoComentario: comentario,
         puntuacion: puntuacion,
       }),
-    }).then((res) => {
-      cargarLibro();
+    })
+      .then((res) => {
+        cargarLibro();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function fetchBorrarLibro() {
+    let borrar = confirm("Estas seguro de borrar el Libro?");
+    if (borrar) {
+      fetch(`http://localhost:3000/libros/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          navigate("/libros");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+
+  function calcularPromedioPuntaje() {
+    let suma = 0;
+    let promedio = 0;
+    for (let i = 0; i < libro.comentarios.length; i++) {
+      suma += libro.comentarios[i].puntuacion;
+    }
+    promedio = suma / libro.comentarios.length;
+    return isNaN(promedio / libro.comentarios.length)
+      ? "No hay puntuaciones"
+      : (promedio / libro.comentarios.length).toFixed(2);
+  }
+
+  function mostrarFormEditarComentario(idComentario, mostrar = true) {
+    setLibro({
+      ...libro,
+      comentarios: libro.comentarios.map((comentario) => {
+        if (comentario._id === idComentario && mostrar) {
+          setTextoComentario(comentario.textoComentario);
+          setPuntuacionComentario(comentario.puntuacion);
+          return { ...comentario, editando: true };
+        } else {
+          return { ...comentario, editando: false };
+        }
+      }),
     });
+  }
+
+  function handleChangeTextoComentario(evento) {
+    setTextoComentario(evento.target.value);
+  }
+
+  function handleChangePuntuacionComentario(evento) {
+    setPuntuacionComentario(evento.target.value);
+  }
+
+  function formEditarComentario(idComentario) {
+    return (
+      <>
+        <textarea
+          type="text"
+          onChange={handleChangeTextoComentario}
+          value={textoComentario}
+          placeholder="Comentario"
+          name="textoComentario"
+          cols="80"
+          rows="6"
+        ></textarea>
+        <br />
+        <input
+          name="puntuacion"
+          type="number"
+          min={1}
+          max={5}
+          onChange={handleChangePuntuacionComentario}
+          value={puntuacionComentario}
+        />
+        <br />
+        <button onClick={() => fetchEditarComentario(idComentario)}>
+          Guardar
+        </button>
+        <button
+          onClick={() => mostrarFormEditarComentario(idComentario, false)}
+        >
+          Cancelar
+        </button>
+      </>
+    );
+  }
+
+  function fetchEditarComentario(idComentario) {
+    fetch(`http://localhost:3000/comentarios/${idComentario}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        textoComentario: textoComentario,
+        puntuacion: puntuacionComentario,
+      }),
+    })
+      .then((res) => {
+        mostrarFormEditarComentario(idComentario, false);
+        cargarLibro();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function fetchBorrarComentario(idComentario) {
+    let borrar = confirm("Estas seguro de borrar el comentario?");
+    if (borrar) {
+      fetch(`http://localhost:3000/comentarios/${idComentario}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+        .then((res) => {
+          cargarLibro();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+
+  function botonesBorrarYEditarLibro() {
+    if (usuarioLogeado.usuario) {
+      if (
+        usuarioLogeado.logeado &&
+        usuarioLogeado.usuario.rol === "Administrativo"
+      ) {
+        return (
+          <>
+            <Link to={`/libros/editar-libro/${libro._id}`}>
+              <button>Editar</button>
+            </Link>
+            <button onClick={fetchBorrarLibro}>Borrar</button>
+          </>
+        );
+      }
+    }
+  }
+
+  function verComentarios() {
+    return libro.comentarios.map((comentario) => {
+      console.log(comentario);
+      return (
+        <div
+          className="w-50 mt-4"
+          style={{ border: "1px solid black" }}
+          key={comentario._id}
+        >
+          <p>
+            Usuario: {comentario.documento.nombre}{" "}
+            {comentario.documento.apellido}
+          </p>
+          <p>Comentario: {comentario.textoComentario}</p>
+          <p>Puntuacion: {comentario.puntuacion}</p>
+        </div>
+      );
+    });
+  }
+
+  function botonesBorrarYEditarComentario(idAutorComentario, idComentario) {
+    if (usuarioLogeado.usuario) {
+      if (
+        idAutorComentario === usuarioLogeado.usuario._id ||
+        usuarioLogeado.usuario.rol === "Administrativo"
+      ) {
+        return (
+          <>
+            <button onClick={() => mostrarFormEditarComentario(idComentario)}>
+              Editar
+            </button>
+            <button onClick={() => fetchBorrarComentario(idComentario)}>
+              Borrar
+            </button>
+          </>
+        );
+      }
+    }
   }
 
   return (
     <>
-      <h1>Ver libro</h1>
-      <p>Titulo: {libro.titulo}</p>
-      <p>Autor: {libro.autor}</p>
-      <p>Categoria: {libro.categoria}</p>
-      <p>Copia Virtual: {libro.copiaVirtual}</p>
-      <p>Copias Libro: {libro.copiasLibro}</p>
-
-      <CrearComentario fetchCrearComentario={fetchCrearComentario} />
+      <center>
+        <h1>Ver libro</h1>
+        <p>Titulo: {libro.titulo}</p>
+        <p>Autor: {libro.autor}</p>
+        <p>Categoria: {libro.categoria}</p>
+        <p>Copia Virtual: {libro.copiaVirtual}</p>
+        <p>Copias Libro: {libro.copiasLibro}</p>
+        {botonesBorrarYEditarLibro()}
+        {usuarioLogeado.logeado ? (
+          <CrearComentario fetchCrearComentario={fetchCrearComentario} />
+        ) : (
+          <Link to={"/iniciar-sesion"}>Inicia sesion para comentar!</Link>
+        )}
+        <ul>
+          {libro.comentarios.map((comentario) => {
+            return (
+              <li
+                key={comentario._id}
+                className="w-50 mt-4"
+                style={{
+                  border: "1px solid black",
+                  listStyle: "none",
+                  padding: "20px",
+                }}
+              >
+                {comentario.editando ? (
+                  formEditarComentario(comentario._id)
+                ) : (
+                  <>
+                    <p>Comentario: {comentario.textoComentario}</p>
+                    <i>
+                      Usuario: {comentario.documento.nombre}{" "}
+                      {comentario.documento.apellido}
+                      <br />
+                      Puntuacion: {comentario.puntuacion}
+                    </i>
+                    <br />
+                    <br />
+                    {botonesBorrarYEditarComentario(
+                      comentario.documento._id,
+                      comentario._id
+                    )}
+                  </>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+        {/* {verComentarios()} */}
+      </center>
     </>
   );
 }
