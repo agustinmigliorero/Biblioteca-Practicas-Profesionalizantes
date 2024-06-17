@@ -9,6 +9,8 @@ function CrearLibro() {
     categoria: "",
     copiaVirtual: "",
     copiasLibro: "",
+    descripcion: "",
+    imagen: "",
   });
 
   const [alerta, setAlerta] = useState({ mensaje: "", error: false });
@@ -35,6 +37,8 @@ function CrearLibro() {
         categoria: libro.categoria,
         copiaVirtual: libro.copiaVirtual,
         copiasLibro: libro.copiasLibro,
+        imagen: libro.imagen,
+        descripcion: libro.descripcion,
       }),
     })
       .then((response) => response.json())
@@ -104,6 +108,29 @@ function CrearLibro() {
             name="copiasLibro"
             placeholder="Copias del Libro"
           />
+          <br />
+
+          <label>Imagen:</label>
+          <br />
+          <input
+            type="text"
+            onChange={handleChange}
+            value={libro.imagen}
+            name="imagen"
+            placeholder="URL de la imagen"
+          />
+          <br />
+          <br />
+
+          <textarea
+            type="text"
+            name="descripcion"
+            onChange={handleChange}
+            value={libro.descripcion}
+            placeholder="Descripcion"
+            rows="8"
+            cols="60"
+          ></textarea>
           <br />
           <input type="submit" value="Enviar" />
         </form>

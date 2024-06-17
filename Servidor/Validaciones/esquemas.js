@@ -30,6 +30,8 @@ const esquemaLibro = Joi.object({
   copiasLibro: Joi.number().required(),
   //copiasDisponibles: Joi.number().required(),
   comentarios: Joi.array(),
+  descripcion: Joi.string().required(),
+  imagen: Joi.string(),
 });
 
 const esquemaModificarLibro = Joi.object({
@@ -41,6 +43,8 @@ const esquemaModificarLibro = Joi.object({
   copiasLibro: Joi.number().required(),
   //copiasDisponibles: Joi.number().required(),
   comentarios: Joi.array(),
+  descripcion: Joi.string().required(),
+  imagen: Joi.string(),
 });
 
 //ESQUEMA DE VALIDACION DE COMENTARIOS

@@ -3,7 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import Alerta from "../../componentes/Alerta";
 
 function EditarLibro() {
-  const [libro, setLibro] = useState({});
+  const [libro, setLibro] = useState({
+    titulo: "",
+    autor: "",
+    categoria: "",
+    copiaVirtual: "",
+    copiasLibro: "",
+    imagen: "",
+    descripcion: "",
+  });
   const { id } = useParams();
   const [alerta, setAlerta] = useState({ mensaje: "", error: false });
 
@@ -39,6 +47,8 @@ function EditarLibro() {
         categoria: libro.categoria,
         copiaVirtual: libro.copiaVirtual,
         copiasLibro: libro.copiasLibro,
+        imagen: libro.imagen,
+        descripcion: libro.descripcion,
       }),
     })
       .then((response) => response.json())
@@ -110,6 +120,28 @@ function EditarLibro() {
               name="copiasLibro"
               placeholder="Copias del Libro"
             />
+            <br />
+            <label>Imagen:</label>
+            <br />
+            <input
+              type="text"
+              onChange={handleChange}
+              value={libro.imagen}
+              name="imagen"
+              placeholder="URL de la imagen"
+            />
+            <br />
+            <br />
+
+            <textarea
+              type="text"
+              name="descripcion"
+              onChange={handleChange}
+              value={libro.descripcion}
+              placeholder="Descripcion"
+              rows="8"
+              cols="60"
+            ></textarea>
             <br />
 
             <input type="submit" value="Enviar" />
