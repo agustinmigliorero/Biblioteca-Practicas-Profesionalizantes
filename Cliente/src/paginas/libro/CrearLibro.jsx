@@ -132,7 +132,9 @@ function CrearLibro() {
             cols="60"
           ></textarea>
           <br />
-          <input type="submit" value="Enviar" />
+          <button type="submit" className="btn btn-success">
+            Enviar
+          </button>
         </form>
         {alerta.error ? <Alerta alerta={alerta} /> : ""}
       </center>

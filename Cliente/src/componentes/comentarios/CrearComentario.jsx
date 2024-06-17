@@ -44,7 +44,10 @@ function CrearComentario({ fetchCrearComentario }) {
           max={10}
         />
         <br />
-        <input type="submit" value="enviar" />
+        <br />
+        <button type="submit" className="btn btn-success">
+          Enviar
+        </button>
       </form>
     </>
   );

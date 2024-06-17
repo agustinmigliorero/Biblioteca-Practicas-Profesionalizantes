@@ -214,9 +214,11 @@ function VerLibro({ usuarioLogeado }) {
         return (
           <>
             <Link to={`/libros/editar-libro/${libro._id}`}>
-              <button>Editar</button>
+              <button className="btn btn-warning">Editar</button>
             </Link>
-            <button onClick={fetchBorrarLibro}>Borrar</button>
+            <button className="btn btn-danger" onClick={fetchBorrarLibro}>
+              Borrar
+            </button>
           </>
         );
       }
@@ -251,10 +253,16 @@ function VerLibro({ usuarioLogeado }) {
       ) {
         return (
           <>
-            <button onClick={() => mostrarFormEditarComentario(idComentario)}>
+            <button
+              className="btn btn-warning"
+              onClick={() => mostrarFormEditarComentario(idComentario)}
+            >
               Editar
             </button>
-            <button onClick={() => fetchBorrarComentario(idComentario)}>
+            <button
+              className="btn btn-danger"
+              onClick={() => fetchBorrarComentario(idComentario)}
+            >
               Borrar
             </button>
           </>
@@ -266,12 +274,24 @@ function VerLibro({ usuarioLogeado }) {
   return (
     <>
       <center>
-        <h1>Ver libro</h1>
-        <p>Titulo: {libro.titulo}</p>
-        <p>Autor: {libro.autor}</p>
-        <p>Categoria: {libro.categoria}</p>
-        <p>Copia Virtual: {libro.copiaVirtual}</p>
-        <p>Copias Libro: {libro.copiasLibro}</p>
+        <h1>{libro.titulo}</h1>
+        <img
+          style={{ width: "20%" }}
+          src={`${libro.imagen}`}
+          alt="Imagen libro"
+        />
+        <p className="mt-4">
+          Autor: <b>{libro.autor}</b>
+        </p>
+        <p>
+          Categoria: <b>{libro.categoria}</b>
+        </p>
+        <p>
+          Copia Virtual: <b>{libro.copiaVirtual}</b>
+        </p>
+        <p>
+          Copias Libro: <b>{libro.copiasLibro}</b>
+        </p>
         {botonesBorrarYEditarLibro()}
         {usuarioLogeado.logeado ? (
           <CrearComentario fetchCrearComentario={fetchCrearComentario} />

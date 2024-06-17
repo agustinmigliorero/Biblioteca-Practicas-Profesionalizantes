@@ -144,7 +144,9 @@ function EditarLibro() {
             ></textarea>
             <br />
 
-            <input type="submit" value="Enviar" />
+            <button type="submit" className="btn btn-success">
+              Enviar
+            </button>
           </form>
           <div>{alerta.error ? <Alerta alerta={alerta} /> : ""}</div>
         </center>

@@ -1,35 +1,50 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-function VerUsuario () {
+function VerUsuario() {
+  const [usuario, setUsuario] = useState({});
 
-    const [usuario, setUsuario] = useState({});
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const { id } = useParams();
-    const navigate = useNavigate();
-
-async function cargarUsuario() {
+  async function cargarUsuario() {
     const respuesta = await fetch(`http://localhost:3000/usuarios/${id}`);
     const usuarioFetch = await respuesta.json();
     setUsuario(usuarioFetch);
-}  
+  }
 
-useEffect(() => {
+  useEffect(() => {
     cargarUsuario();
-}, []);
+  }, []);
 
-    return (
-        <>
-            <h1>Ver al usuario</h1>
+  return (
+    <>
+      <center className="mt-5">
+        <h1>
+          {usuario.nombre} {usuario.apellido}
+        </h1>
 
-            <p>DNI: {usuario.dni}</p>
-            <p>Nombre: {usuario.nombre}</p>
-            <p>Apellido: {usuario.apellido}</p>
-            <p>Email: {usuario.email}</p>
-            <p>Rol: {usuario.rol}</p>
-            <p>Activo: {usuario.activo ? "Si" : "No" }</p>
-        </>
-    )
+        <p>
+          DNI: <b>{usuario.dni}</b>
+        </p>
+        <p>
+          Nombre: <b>{usuario.nombre}</b>
+        </p>
+        <p>
+          Apellido: <b>{usuario.apellido}</b>
+        </p>
+        <p>
+          Email: <b>{usuario.email}</b>
+        </p>
+        <p>
+          Rol: <b>{usuario.rol}</b>
+        </p>
+        <p>
+          Activo: <b>{usuario.activo ? "Si" : "No"}</b>
+        </p>
+      </center>
+    </>
+  );
 }
 
-export default VerUsuario
+export default VerUsuario;
