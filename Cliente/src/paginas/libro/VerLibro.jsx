@@ -271,6 +271,16 @@ function VerLibro({ usuarioLogeado }) {
     }
   }
 
+  function calcularPromedioPuntaje() {
+    let promedio = 0;
+    for (let i = 0; i < libro.comentarios.length; i++) {
+      promedio += libro.comentarios[i].puntuacion;
+    }
+    return isNaN(promedio / libro.comentarios.length)
+      ? "No hay puntuaciones"
+      : (promedio / libro.comentarios.length).toFixed(2);
+  }
+
   return (
     <>
       <center>
@@ -280,7 +290,8 @@ function VerLibro({ usuarioLogeado }) {
           src={`${libro.imagen}`}
           alt="Imagen libro"
         />
-        <p className="mt-4">
+        <p className="mt-4 w-25 text-center">{libro.descripcion}</p>
+        <p className="mt-2">
           Autor: <b>{libro.autor}</b>
         </p>
         <p>
@@ -292,6 +303,9 @@ function VerLibro({ usuarioLogeado }) {
         <p>
           Copias Libro: <b>{libro.copiasLibro}</b>
         </p>
+        <h3>
+          Puntaje promedio de la publicacion: <b>{calcularPromedioPuntaje()}</b>
+        </h3>
         {botonesBorrarYEditarLibro()}
         {usuarioLogeado.logeado ? (
           <CrearComentario fetchCrearComentario={fetchCrearComentario} />
