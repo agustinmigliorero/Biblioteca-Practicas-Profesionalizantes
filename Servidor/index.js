@@ -9,6 +9,7 @@ const Usuario = require("./Models/usuario");
 const routerUsuarios = require("./Routes/usuario");
 const routerLibro = require("./Routes/libro");
 const routerComentario = require("./Routes/comentario");
+const usuario = require("./Models/usuario");
 
 //db conexion
 mongoose.connect(process.env.MONGO_URL_CONNECTION, {
@@ -64,6 +65,27 @@ app.use("/usuarios", routerUsuarios);
 app.use("/libros", routerLibro);
 app.use("/comentarios", routerComentario);
 //rutas
+
+//crear admin
+async function crearAdmin() {
+  const usuarios = await Usuario.find();
+
+  if (usuarios.length === 0) {
+    const admin = new Usuario({
+      dni: 12345,
+      nombre: "admin",
+      apellido: "admin",
+      email: "admin@admin.com",
+      rol: "Administrativo",
+      activo: true,
+      username: 12345,
+    });
+    const nuevoUsuario = await Usuario.register(admin, "admin123");
+  }
+}
+
+crearAdmin();
+//crear admin
 
 //error handler
 app.use((err, req, res, next) => {

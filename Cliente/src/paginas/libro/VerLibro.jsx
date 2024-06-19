@@ -30,7 +30,10 @@ function VerLibro({ usuarioLogeado }) {
     cargarLibro();
   }, []);
 
-  async function fetchCrearComentario(comentario, puntuacion) {
+  async function fetchCrearComentario(comentario, puntuacion, comento) {
+    if (comento) {
+      return;
+    }
     const response = await fetch("http://localhost:3000/comentarios", {
       method: "POST",
       headers: {
@@ -281,6 +284,22 @@ function VerLibro({ usuarioLogeado }) {
       : (promedio / libro.comentarios.length).toFixed(2);
   }
 
+  function verificarComentarioUsuario(comentario, puntuacion) {
+    let usuarioComento = false;
+    for (let i = 0; i < libro.comentarios.length; i++) {
+      if (libro.comentarios[i].documento._id === usuarioLogeado.usuario._id) {
+        setAlerta({
+          error: true,
+          mensaje: "Solo puedes crear un comentario por libro",
+        });
+        usuarioComento = true;
+        break;
+      }
+    }
+    if (!usuarioComento) {
+      fetchCrearComentario(comentario, puntuacion, usuarioComento);
+    }
+  }
   return (
     <>
       <center>
@@ -308,7 +327,7 @@ function VerLibro({ usuarioLogeado }) {
         </h3>
         {botonesBorrarYEditarLibro()}
         {usuarioLogeado.logeado ? (
-          <CrearComentario fetchCrearComentario={fetchCrearComentario} />
+          <CrearComentario fetchCrearComentario={verificarComentarioUsuario} />
         ) : (
           <Link to={"/iniciar-sesion"}>Inicia sesion para comentar!</Link>
         )}
