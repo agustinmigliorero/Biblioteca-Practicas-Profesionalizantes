@@ -64,6 +64,10 @@ const esquemaModificarComentario = Joi.object({
   puntuacion: Joi.number().required(),
 });
 
+//ESQUEMA DE VALIDACION DE RESERVAS
+
+//ESQUEMA DE VALIDACION DE PRESTAMOS
+
 module.exports = {
   esquemaUsuario,
   esquemaEditarUsuario,

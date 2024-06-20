@@ -9,6 +9,8 @@ const Usuario = require("./Models/usuario");
 const routerUsuarios = require("./Routes/usuario");
 const routerLibro = require("./Routes/libro");
 const routerComentario = require("./Routes/comentario");
+const routerReserva = require("./Routes/reserva");
+const routerPrestamo = require("./Routes/prestamo");
 const usuario = require("./Models/usuario");
 
 //db conexion
@@ -28,17 +30,36 @@ const app = express();
 // app.use(cors());
 
 //cors
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Origin", req.headers.origin);
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With, Content-Type, Accept, Origin, Authorization"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Credentials", true);
+//   res.header("Access-Control-Allow-Origin", req.headers.origin);
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With, Content-Type, Accept, Origin, Authorization"
+//   );
+//   next();
+// });
 //cors
+
+// const cors = require("cors");
+
+// Configuración de las opciones de CORS
+const corsOptions = {
+  origin: true,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: [
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "Origin",
+    "Authorization",
+  ],
+};
+
+// Implementación del middleware CORS
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -64,6 +85,8 @@ passport.deserializeUser(Usuario.deserializeUser());
 app.use("/usuarios", routerUsuarios);
 app.use("/libros", routerLibro);
 app.use("/comentarios", routerComentario);
+app.use("/reservas", routerReserva);
+app.use("/prestamos", routerPrestamo);
 //rutas
 
 //crear admin
