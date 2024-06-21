@@ -3,7 +3,7 @@ import fondoPagina from "../../assets/fondo_paginas.svg";
 
 function Desconectarse({ setUsuarioLogeado }) {
   async function desconectarUsuario() {
-    fetch("http://localhost:3000/usuarios/desconectarse", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/desconectarse`, {
       credentials: "include",
     })
       .then((res) => {

@@ -21,7 +21,9 @@ function EditarUsuario({ usuarioLogeado }) {
   }
 
   async function cargarUsuario() {
-    const respuesta = await fetch(`http://localhost:3000/usuarios/${id}`);
+    const respuesta = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/usuarios/${id}`
+    );
     const usuarioFetch = await respuesta.json();
     setUsuario(usuarioFetch);
     if (
@@ -40,7 +42,7 @@ function EditarUsuario({ usuarioLogeado }) {
 
   const enviarFormulario = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/usuarios/${id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -25,7 +25,7 @@ function CrearLibro() {
 
   const enviarFormulario = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/libros", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/libros`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

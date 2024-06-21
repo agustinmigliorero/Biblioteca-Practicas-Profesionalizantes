@@ -16,7 +16,9 @@ function VerLibro({ usuarioLogeado }) {
   const [puntuacionComentario, setPuntuacionComentario] = useState(5);
 
   async function cargarLibro() {
-    const respuesta = await fetch(`http://localhost:3000/libros/${id}`);
+    const respuesta = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/libros/${id}`
+    );
     const data = await respuesta.json();
     setLibro({
       ...data,
@@ -34,19 +36,22 @@ function VerLibro({ usuarioLogeado }) {
     if (comento) {
       return;
     }
-    const response = await fetch("http://localhost:3000/comentarios", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        idLibro: id,
-        documento: usuarioLogeado.usuario._id,
-        textoComentario: comentario,
-        puntuacion: puntuacion,
-      }),
-    })
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/comentarios`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          idLibro: id,
+          documento: usuarioLogeado.usuario._id,
+          textoComentario: comentario,
+          puntuacion: puntuacion,
+        }),
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -72,7 +77,7 @@ function VerLibro({ usuarioLogeado }) {
   function fetchBorrarLibro() {
     let borrar = confirm("Estas seguro de borrar el Libro?");
     if (borrar) {
-      fetch(`http://localhost:3000/libros/${id}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/api/libros/${id}`, {
         method: "DELETE",
       })
         .then((res) => {
@@ -154,7 +159,7 @@ function VerLibro({ usuarioLogeado }) {
   }
 
   function fetchEditarComentario(idComentario) {
-    fetch(`http://localhost:3000/comentarios/${idComentario}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/comentarios/${idComentario}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -191,7 +196,7 @@ function VerLibro({ usuarioLogeado }) {
   function fetchBorrarComentario(idComentario) {
     let borrar = confirm("Estas seguro de borrar el comentario?");
     if (borrar) {
-      fetch(`http://localhost:3000/comentarios/${idComentario}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/api/comentarios/${idComentario}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

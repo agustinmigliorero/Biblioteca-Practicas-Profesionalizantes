@@ -26,7 +26,7 @@ routerUsuarios
 routerUsuarios.post(
   "/iniciar-sesion",
   passport.authenticate("local", {
-    failureRedirect: "/usuarios/error-iniciar-sesion",
+    failureRedirect: "/api/usuarios/error-iniciar-sesion",
   }),
   catchAsync(loginUsuario)
 );

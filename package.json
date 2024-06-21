@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": " concurrently \"cd Servidor && npm run dev\" \"cd Cliente && npm run dev\" "
+    "dev": "concurrently \"cd ./Servidor && npm run dev\" \"cd ./Cliente && npm run dev\"",
+    "production": "cd ./Cliente && npm run build && cd ../Servidor && npm run dev"
   },
   "keywords": [],
   "author": "",

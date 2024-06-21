@@ -6,7 +6,7 @@ function VerLibros() {
   const [libros, setLibros] = useState([]);
 
   async function cargarLibros() {
-    const respuesta = await fetch("http://localhost:3000/libros");
+    const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/libros`);
     const librosFetch = await respuesta.json();
     setLibros(librosFetch);
   }

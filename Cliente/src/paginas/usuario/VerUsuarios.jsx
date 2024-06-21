@@ -5,7 +5,9 @@ function MostrarTabla() {
   const [usuarios, setUsuarios] = useState([]);
 
   async function cargarUsuarios() {
-    const respuesta = await fetch("http://localhost:3000/usuarios");
+    const respuesta = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/usuarios`
+    );
     const usuariosFetch = await respuesta.json();
     setUsuarios(usuariosFetch);
   }

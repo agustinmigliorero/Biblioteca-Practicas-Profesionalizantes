@@ -24,7 +24,9 @@ function EditarLibro() {
   }
 
   async function cargarLibro() {
-    const respuesta = await fetch(`http://localhost:3000/libros/${id}`);
+    const respuesta = await fetch(
+      `{import.meta.env.VITE_API_URL}/api/libros/${id}`
+    );
     const libroFetch = await respuesta.json();
     setLibro(libroFetch);
   }
@@ -35,7 +37,7 @@ function EditarLibro() {
 
   const enviarFormulario = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:3000/libros/${id}`, {
+    await fetch(`{import.meta.env.VITE_API_URL}/api/libros/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

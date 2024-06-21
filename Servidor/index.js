@@ -12,6 +12,7 @@ const routerComentario = require("./Routes/comentario");
 const routerReserva = require("./Routes/reserva");
 const routerPrestamo = require("./Routes/prestamo");
 const usuario = require("./Models/usuario");
+const path = require("path");
 
 //db conexion
 mongoose.connect(process.env.MONGO_URL_CONNECTION, {
@@ -27,39 +28,18 @@ db.once("open", () => console.log("Base de datos conectada!"));
 
 const app = express();
 
-// app.use(cors());
-
 //cors
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header("Access-Control-Allow-Origin", req.headers.origin);
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "X-Requested-With, Content-Type, Accept, Origin, Authorization"
-//   );
-//   next();
-// });
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, Content-Type, Accept, Origin, Authorization"
+  );
+  next();
+});
 //cors
-
-// const cors = require("cors");
-
-// Configuración de las opciones de CORS
-const corsOptions = {
-  origin: true,
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: [
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "Origin",
-    "Authorization",
-  ],
-};
-
-// Implementación del middleware CORS
-app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -82,11 +62,18 @@ passport.deserializeUser(Usuario.deserializeUser());
 //passport y session
 
 //rutas
-app.use("/usuarios", routerUsuarios);
-app.use("/libros", routerLibro);
-app.use("/comentarios", routerComentario);
-app.use("/reservas", routerReserva);
-app.use("/prestamos", routerPrestamo);
+app.use("/api/usuarios", routerUsuarios);
+app.use("/api/libros", routerLibro);
+app.use("/api/comentarios", routerComentario);
+app.use("/api/reservas", routerReserva);
+app.use("/api/prestamos", routerPrestamo);
+
+app.use(express.static(path.join(__dirname, "public")));
+const htmlPath = path.join(__dirname, "public", "index.html");
+
+app.get("*", (req, res) => {
+  res.sendFile(htmlPath);
+});
 //rutas
 
 //crear admin
@@ -117,6 +104,7 @@ app.use((err, req, res, next) => {
 });
 //error handler
 
-app.listen(process.env.PORT_SERVER, () =>
-  console.log(`Servidor encendido en el puerto: ${process.env.PORT_SERVER}`)
-);
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor encendido en el puerto: ${process.env.PORT}`);
+  console.log("https://biblioteca-practicas-profesionalizantes.onrender.com/");
+});

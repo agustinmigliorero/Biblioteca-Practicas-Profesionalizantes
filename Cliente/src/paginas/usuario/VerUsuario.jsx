@@ -8,7 +8,9 @@ function VerUsuario() {
   const navigate = useNavigate();
 
   async function cargarUsuario() {
-    const respuesta = await fetch(`http://localhost:3000/usuarios/${id}`);
+    const respuesta = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/usuarios/${id}`
+    );
     const usuarioFetch = await respuesta.json();
     setUsuario(usuarioFetch);
   }

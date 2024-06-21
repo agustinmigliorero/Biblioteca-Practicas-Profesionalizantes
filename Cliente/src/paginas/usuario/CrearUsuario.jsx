@@ -24,7 +24,7 @@ function CrearUsuario({ setUsuarioLogeado }) {
 
   const enviarFormulario = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/usuarios", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/usuarios`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

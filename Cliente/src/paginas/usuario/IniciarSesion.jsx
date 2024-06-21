@@ -20,7 +20,7 @@ function IniciarSesion({ setUsuarioLogeado }) {
 
   const enviarFormulario = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/usuarios/iniciar-sesion", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/iniciar-sesion`, {
       method: "POST",
       credentials: "include",
       headers: {

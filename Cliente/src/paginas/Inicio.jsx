@@ -5,7 +5,7 @@ import fondoPagina from "../assets/fondo_paginas.svg";
 
 function PaginaPrincipal() {
   const { state } = useLocation();
-
+  console.log(import.meta.env.VITE_API_URL);
   return (
     <>
       {state && state.alerta && <Alerta alerta={{ mensaje: state.alerta }} />}
