@@ -36,7 +36,8 @@ const verReservas = async (req, res) => {
 
 const editarReserva = async (req, res) => {
   const { id } = req.params;
-  const { idLibro, documento, fechaReserva, fechaDevolucion } = req.body;
+  const { idLibro, documento, fechaReserva, fechaDevolucion, estadoReserva } =
+    req.body;
   const reserva = await Reserva.findByIdAndUpdate(id, {
     idLibro,
     documento,

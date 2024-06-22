@@ -7,13 +7,17 @@ const {
   eliminarReserva,
 } = require("../Controllers/reserva");
 const { catchAsync } = require("../middlewares");
+const {
+  validarReserva,
+  validarEditarReserva,
+} = require("../Validaciones/validaciones");
 
 RouterReservas.route("/")
-  .post(catchAsync(crearReserva))
+  .post(validarReserva, catchAsync(crearReserva))
   .get(catchAsync(verReservas));
 
 RouterReservas.route("/:id")
   .get(catchAsync(verReserva))
-  .put(catchAsync(editarReserva))
+  .put(validarEditarReserva, catchAsync(editarReserva))
   .delete(catchAsync(eliminarReserva));
 module.exports = RouterReservas;

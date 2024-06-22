@@ -10,6 +10,7 @@ import VerLibros from "./paginas/libro/VerLibros.jsx";
 import VerLibro from "./paginas/libro/VerLibro.jsx";
 import EditarLibro from "./paginas/libro/EditarLibro.jsx";
 import CrearReserva from "./paginas/reserva/CrearReserva.jsx";
+import EditarReserva from "./paginas/reserva/EditarReserva.jsx";
 import Inicio from "./paginas/Inicio.jsx";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./componentes/Navbar.jsx";
@@ -115,6 +116,10 @@ function App() {
         <Route
           path="/reservas/:id"
           element={<CrearReserva usuarioLogeado={usuarioLogeado} />}
+        />
+        <Route
+          path="/reservas/editar-reserva/:id"
+          element={<EditarReserva usuarioLogeado={usuarioLogeado} />}
         />
         {/* Fin de rutas de reservas */}
         <Route path="*" element={<Navigate to="/" />} />

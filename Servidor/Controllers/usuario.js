@@ -29,7 +29,12 @@ const crearUsuario = async (req, res) => {
 // METODO PARA BUSCAR UN USUARIO POR ID
 const buscarUsuario = async (req, res) => {
   const { id } = req.params;
-  const usuario = await Usuario.findById(id);
+  const usuario = await Usuario.findById(id)
+    .populate({
+      path: "comentarios",
+      populate: { path: "idLibro" },
+    })
+    .populate({ path: "reservas", populate: { path: "idLibro" } });
   res.json(usuario);
 };
 

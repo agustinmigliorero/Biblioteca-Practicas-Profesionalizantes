@@ -61,10 +61,12 @@ const modificarLibro = async (req, res) => {
 //FUNCION PARA BUSCAR LIBROS POR ID, TITULO, AUTOR Y CATEGORIA
 const buscarLibro = async (req, res) => {
   const { id } = req.params;
-  const libro = await Libro.findById(id).populate({
-    path: "comentarios",
-    populate: { path: "documento" },
-  });
+  const libro = await Libro.findById(id)
+    .populate({
+      path: "comentarios",
+      populate: { path: "documento" },
+    })
+    .populate({ path: "reservas", populate: { path: "documento" } });
   res.json(libro);
 };
 
