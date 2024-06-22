@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Card({ libro }) {
   return (
     <>
@@ -24,14 +26,16 @@ function Card({ libro }) {
         ) : null}
         <div className="card-body">
           <h4 className="card-title">{libro.titulo}</h4>
-          <p className="card-text">{libro.descripcion}</p>
+          <p className="card-text">
+            {libro.descripcion.substring(0, 150) + "..."}
+          </p>
           <p className="card-text">
             <i>Autor: {libro.autor}</i>
           </p>
           <p className="card-text">Copias: {libro.copiasLibro}</p>
-          <a href={"/libros/" + libro._id} className="btn btn-primary">
+          <Link to={"/libros/" + libro._id} className="btn btn-primary">
             Ver libro
-          </a>
+          </Link>
         </div>
       </div>
     </>

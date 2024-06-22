@@ -1,17 +1,12 @@
 const Reserva = require("../Models/reserva");
+const Libro = require("../Models/libro");
+const Usuario = require("../Models/usuario");
 
 const crearReserva = async (req, res) => {
-  const {
-    //idReserva,
-    idLibro,
-    documento,
-    fechaReserva,
-    fechaDevolucion,
-    estadoReserva,
-  } = req.body;
+  const { idLibro, documento, fechaReserva, fechaDevolucion, estadoReserva } =
+    req.body;
 
   const reserva = new Reserva({
-    //idReserva,
     idLibro,
     documento,
     fechaReserva,
@@ -19,6 +14,12 @@ const crearReserva = async (req, res) => {
     estadoReserva,
   });
   await reserva.save();
+  await Libro.findByIdAndUpdate(idLibro, {
+    $push: { reservas: reserva._id },
+  });
+  await Usuario.findByIdAndUpdate(documento, {
+    $push: { reservas: reserva._id },
+  });
   res.json({ mensaje: "Reserva creada" });
 };
 
@@ -50,6 +51,12 @@ const editarReserva = async (req, res) => {
 const eliminarReserva = async (req, res) => {
   const { id } = req.params;
   const reserva = await Reserva.findByIdAndDelete(id);
+  await Libro.findByIdAndUpdate(reserva.idLibro, {
+    $pull: { reservas: id },
+  });
+  await Usuario.findByIdAndUpdate(reserva.documento, {
+    $pull: { reservas: id },
+  });
   res.json({ mensaje: "Reserva eliminada", reserva });
 };
 

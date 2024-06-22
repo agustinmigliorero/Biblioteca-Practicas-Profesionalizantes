@@ -305,6 +305,7 @@ function VerLibro({ usuarioLogeado }) {
       fetchCrearComentario(comentario, puntuacion, usuarioComento);
     }
   }
+
   return (
     <>
       <center>
@@ -330,6 +331,10 @@ function VerLibro({ usuarioLogeado }) {
         <h3>
           Puntaje promedio de la publicacion: <b>{calcularPromedioPuntaje()}</b>
         </h3>
+        <Link to={"/reservas/" + libro._id} className={"btn btn-primary"}>
+          Reservar
+        </Link>
+        <br />
         {botonesBorrarYEditarLibro()}
         {usuarioLogeado.logeado ? (
           <CrearComentario fetchCrearComentario={verificarComentarioUsuario} />

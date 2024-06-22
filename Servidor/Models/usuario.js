@@ -13,6 +13,7 @@ const usuarioSchema = new Schema(
     activo: { type: Boolean, default: false },
     comentarios: [{ type: Schema.Types.ObjectId, ref: "Comentario" }],
     //prestamos: [{ type: Schema.Types.ObjectId, ref: "Prestamo" }],
+    reservas: [{ type: Schema.Types.ObjectId, ref: "Reserva" }],
   },
   {
     timestamps: true,

@@ -58,6 +58,26 @@ const validarModificarComentario = (req, res, next) => {
   next();
 };
 
+//VALIDACION DE PRESTAMOS
+
+//VALIDACION DE RESERVAS
+
+const validarReserva = (req, res, next) => {
+  const { error } = esquemaReserva.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  next();
+};
+
+const validarEditarReserva = (req, res, next) => {
+  const { error } = esquemaEditarReserva.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  next();
+};
+
 module.exports = {
   validarUsuario,
   validarEditarUsuario,
@@ -65,4 +85,6 @@ module.exports = {
   validarModificarLibro,
   validarComentario,
   validarModificarComentario,
+  validarReserva,
+  validarEditarReserva,
 };

@@ -1,4 +1,6 @@
 const Usuario = require("../Models/usuario");
+const Comentario = require("../Models/comentario");
+const Reserva = require("../Models/reserva");
 
 const crearUsuario = async (req, res) => {
   // METODO PARA CREAR UN NUEVO USUARIO
@@ -56,6 +58,8 @@ const editarUsuario = async (req, res) => {
 const eliminarUsuario = async (req, res) => {
   const { id } = req.params;
   const usuario = await Usuario.findByIdAndDelete(id);
+  await Comentario.deleteMany({ documento: id });
+  await Reserva.deleteMany({ documento: id });
   res.json({ mensaje: "Usuario eliminado", usuario });
 };
 

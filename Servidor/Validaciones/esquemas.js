@@ -66,6 +66,22 @@ const esquemaModificarComentario = Joi.object({
 
 //ESQUEMA DE VALIDACION DE RESERVAS
 
+const esquemaReserva = Joi.object({
+  idLibro: Joi.string().required(),
+  documento: Joi.string().required(),
+  fechaReserva: Joi.date().required(),
+  fechaDevolucion: Joi.date().required(),
+  estadoReserva: Joi.boolean(),
+});
+
+const esquemaEditarReserva = Joi.object({
+  idLibro: Joi.string(),
+  documento: Joi.string(),
+  fechaReserva: Joi.date().required(),
+  fechaDevolucion: Joi.date().required(),
+  estadoReserva: Joi.boolean(),
+});
+
 //ESQUEMA DE VALIDACION DE PRESTAMOS
 
 module.exports = {
@@ -75,4 +91,6 @@ module.exports = {
   esquemaModificarLibro,
   esquemaComentario,
   esquemaModificarComentario,
+  esquemaReserva,
+  esquemaEditarReserva,
 };

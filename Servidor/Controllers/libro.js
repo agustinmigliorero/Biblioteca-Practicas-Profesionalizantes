@@ -3,7 +3,6 @@ const Libro = require("../Models/libro");
 //FUNCION PARA CREAR UN NUEVO LIBRO
 const crearLibro = async (req, res) => {
   const {
-    //idLibro,
     titulo,
     autor,
     categoria,
@@ -14,7 +13,6 @@ const crearLibro = async (req, res) => {
     //copiasDisponibles,
   } = req.body;
   const libro = new Libro({
-    //idLibro,
     titulo,
     autor,
     categoria,

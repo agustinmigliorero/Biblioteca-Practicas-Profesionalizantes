@@ -1,10 +1,8 @@
 const Prestamo = require("../Models/prestamo");
 
 const crearPrestamo = async (req, res) => {
-  const { idPrestamo, documento, idLibro, fechaPrestamo, fechaDevolucion } =
-    req.body;
+  const { documento, idLibro, fechaPrestamo, fechaDevolucion } = req.body;
   const prestamo = new Prestamo({
-    idPrestamo,
     documento,
     idLibro,
     fechaPrestamo,
