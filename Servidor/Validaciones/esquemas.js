@@ -27,7 +27,7 @@ const esquemaLibro = Joi.object({
   autor: Joi.string().required(),
   categoria: Joi.string().required(),
   copiaVirtual: Joi.string().required(),
-  copiasLibro: Joi.number().required(),
+  copiasLibro: Joi.number().min(0).required(),
   //copiasDisponibles: Joi.number().required(),
   comentarios: Joi.array(),
   descripcion: Joi.string().required(),

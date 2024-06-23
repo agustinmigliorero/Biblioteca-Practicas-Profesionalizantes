@@ -1,4 +1,6 @@
 const Prestamo = require("../Models/prestamo");
+const Libro = require("../Models/libro");
+const Usuario = require("../Models/usuario");
 
 const crearPrestamo = async (req, res) => {
   const { documento, idLibro, fechaPrestamo, fechaDevolucion } = req.body;
@@ -9,6 +11,12 @@ const crearPrestamo = async (req, res) => {
     fechaDevolucion,
   });
   await prestamo.save();
+  await Libro.findByIdAndUpdate(idLibro, {
+    $push: { prestamos: prestamo._id },
+  });
+  await Usuario.findByIdAndUpdate(documento, {
+    $push: { prestamos: prestamo._id },
+  });
   res.json({ mensaje: "Prestamo creado" });
 };
 
@@ -26,6 +34,12 @@ const verPrestamos = async (req, res) => {
 const eliminarPrestamo = async (req, res) => {
   const { id } = req.params;
   const prestamo = await Prestamo.findByIdAndDelete(id);
+  await Libro.findByIdAndUpdate(prestamo.idLibro, {
+    $pull: { prestamos: id },
+  });
+  await Usuario.findByIdAndUpdate(prestamo.documento, {
+    $pull: { prestamos: id },
+  });
   res.json({ mensaje: "Prestamo eliminado", prestamo });
 };
 

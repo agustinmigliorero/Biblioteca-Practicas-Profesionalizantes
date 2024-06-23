@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const prestamo = require("./prestamo");
 const Schema = mongoose.Schema;
 
 const schemaLibro = new Schema({
@@ -12,6 +13,7 @@ const schemaLibro = new Schema({
   descripcion: { type: String },
   imagen: { type: String },
   reservas: [{ type: Schema.Types.ObjectId, ref: "Reserva" }],
+  prestamos: [{ type: Schema.Types.ObjectId, ref: "Prestamo" }],
 });
 
 module.exports = mongoose.model("Libro", schemaLibro);
