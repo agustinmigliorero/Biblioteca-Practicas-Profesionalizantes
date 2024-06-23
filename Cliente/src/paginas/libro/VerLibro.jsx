@@ -334,6 +334,9 @@ function VerLibro({ usuarioLogeado }) {
         <Link to={"/reservas/" + libro._id} className={"btn btn-primary"}>
           Reservar
         </Link>
+        <Link to={"/prestamos/" + libro._id} className={"btn btn-primary"}>
+          Prestamo
+        </Link>
         <br />
         {botonesBorrarYEditarLibro()}
         {usuarioLogeado.logeado ? (

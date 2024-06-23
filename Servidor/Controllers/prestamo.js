@@ -3,12 +3,12 @@ const Libro = require("../Models/libro");
 const Usuario = require("../Models/usuario");
 
 const crearPrestamo = async (req, res) => {
-  const { documento, idLibro, fechaPrestamo, fechaDevolucion } = req.body;
+  const { documento, idLibro, fechaDeInicio, fechaDeFin } = req.body;
   const prestamo = new Prestamo({
     documento,
     idLibro,
-    fechaPrestamo,
-    fechaDevolucion,
+    fechaDeInicio,
+    fechaDeFin,
   });
   await prestamo.save();
   await Libro.findByIdAndUpdate(idLibro, {
@@ -45,12 +45,12 @@ const eliminarPrestamo = async (req, res) => {
 
 const editarPrestamo = async (req, res) => {
   const { id } = req.params;
-  const { idLibro, documento, fechaPrestamo, fechaDevolucion } = req.body;
+  const { idLibro, documento, fechaDeInicio, fechaDeFin } = req.body;
   const prestamo = await Prestamo.findByIdAndUpdate(id, {
     idLibro,
     documento,
-    fechaPrestamo,
-    fechaDevolucion,
+    fechaDeInicio,
+    fechaDeFin,
   });
   res.json({ mensaje: "Prestamo modificado", prestamo });
 };

@@ -7,6 +7,8 @@ const {
   esquemaModificarComentario,
   esquemaReserva,
   esquemaEditarReserva,
+  esquemaPrestamo,
+  esquemaEditarPrestamo,
 } = require("./esquemas");
 
 //VALIDACION DE USUARIOS
@@ -62,8 +64,23 @@ const validarModificarComentario = (req, res, next) => {
 
 //VALIDACION DE PRESTAMOS
 
-//VALIDACION DE RESERVAS
+const validarPrestamo = (req, res, next) => {
+  const { error } = esquemaPrestamo.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  next();
+};
 
+const validarEditarPrestamo = (req, res, next) => {
+  const { error } = esquemaEditarPrestamo.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  next();
+};
+
+//VALIDACION DE RESERVAS
 const validarReserva = (req, res, next) => {
   const { error } = esquemaReserva.validate(req.body);
   let { fechaReserva, fechaDevolucion } = req.body;
@@ -118,4 +135,6 @@ module.exports = {
   validarModificarComentario,
   validarReserva,
   validarEditarReserva,
+  validarPrestamo,
+  validarEditarPrestamo,
 };

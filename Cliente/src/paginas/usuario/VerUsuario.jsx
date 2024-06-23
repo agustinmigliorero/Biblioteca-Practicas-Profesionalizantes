@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 function VerUsuario() {
   const [usuario, setUsuario] = useState({
+    prestamos: [],
     reservas: [],
   });
 
@@ -37,6 +38,30 @@ function VerUsuario() {
           <td>{reserva.estadoReserva ? "Activa" : "Finalizada"}</td>
           <td>
             <Link to={`/reservas/editar-reserva/${reserva._id}`}>Editar</Link>
+          </td>
+        </tr>
+      );
+    });
+  }
+
+  function verPrestamos() {
+    return usuario.prestamos.map((prestamo) => {
+      let dateFechaPrestamo = new Date(prestamo.fechaDeInicio);
+      let dateFechaDevolucion = new Date(prestamo.fechaDeFin);
+      return (
+        <tr key={prestamo._id}>
+          <td>{prestamo.idLibro.titulo}</td>
+          <td>{`${dateFechaPrestamo.getDate()}/${
+            dateFechaPrestamo.getMonth() + 1
+          }/${dateFechaPrestamo.getFullYear()}`}</td>
+          <td>{`${dateFechaDevolucion.getDate()}/${
+            dateFechaDevolucion.getMonth() + 1
+          }/${dateFechaDevolucion.getFullYear()}`}</td>
+          <td>{prestamo.estadoPrestamo ? "Activa" : "Finalizada"}</td>
+          <td>
+            <Link to={`/prestamos/editar-prestamo/${prestamo._id}`}>
+              Editar
+            </Link>
           </td>
         </tr>
       );
@@ -79,6 +104,18 @@ function VerUsuario() {
             </tr>
           </thead>
           <tbody>{verReservas()}</tbody>
+        </table>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Libro</th>
+              <th>Fecha de prestamo</th>
+              <th>Fecha de devolución</th>
+              <th>Estado del prestamo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>{verPrestamos()}</tbody>
         </table>
       </center>
     </>

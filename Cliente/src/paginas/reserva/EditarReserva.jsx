@@ -73,7 +73,7 @@ function EditarReserva() {
           <input
             className="btn btn-primary"
             type="submit"
-            value="Editar reserva"
+            value="Guardar"
             onClick={fetchEnviarFormulario}
           />
         </form>

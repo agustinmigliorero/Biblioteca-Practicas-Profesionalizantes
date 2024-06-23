@@ -7,13 +7,17 @@ const {
   eliminarPrestamo,
 } = require("../Controllers/prestamo");
 const { catchAsync } = require("../middlewares");
+const {
+  validarPrestamo,
+  validarEditarPrestamo,
+} = require("../Validaciones/validaciones");
 
 RouterPrestamos.route("/")
-  .post(catchAsync(crearPrestamo))
+  .post(validarPrestamo, catchAsync(crearPrestamo))
   .get(catchAsync(verPrestamos));
 
 RouterPrestamos.route("/:id")
   .get(catchAsync(verPrestamo))
-  .put(catchAsync(editarPrestamo))
+  .put(validarEditarPrestamo, catchAsync(editarPrestamo))
   .delete(catchAsync(eliminarPrestamo));
 module.exports = RouterPrestamos;

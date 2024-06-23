@@ -11,6 +11,8 @@ import VerLibro from "./paginas/libro/VerLibro.jsx";
 import EditarLibro from "./paginas/libro/EditarLibro.jsx";
 import CrearReserva from "./paginas/reserva/CrearReserva.jsx";
 import EditarReserva from "./paginas/reserva/EditarReserva.jsx";
+import CrearPrestamo from "./paginas/prestamo/CrearPrestamo.jsx";
+import EditarPrestamo from "./paginas/prestamo/EditarPrestamo.jsx";
 import Inicio from "./paginas/Inicio.jsx";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./componentes/Navbar.jsx";
@@ -122,6 +124,16 @@ function App() {
           element={<EditarReserva usuarioLogeado={usuarioLogeado} />}
         />
         {/* Fin de rutas de reservas */}
+        {/* Inicio de rutas de prestamos */}
+        <Route
+          path="/prestamos/:id"
+          element={<CrearPrestamo usuarioLogeado={usuarioLogeado} />}
+        />
+        <Route
+          path="/prestamos/editar-prestamo/:id"
+          element={<EditarPrestamo usuarioLogeado={usuarioLogeado} />}
+        />
+        {/* Fin de rutas de prestamos */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer></Footer>

@@ -34,7 +34,8 @@ const buscarUsuario = async (req, res) => {
       path: "comentarios",
       populate: { path: "idLibro" },
     })
-    .populate({ path: "reservas", populate: { path: "idLibro" } });
+    .populate({ path: "reservas", populate: { path: "idLibro" } })
+    .populate({ path: "prestamos", populate: { path: "idLibro" } });
   res.json(usuario);
 };
 
