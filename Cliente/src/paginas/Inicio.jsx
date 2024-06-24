@@ -8,7 +8,24 @@ function PaginaPrincipal() {
   console.log(import.meta.env.VITE_API_URL);
   return (
     <>
-      {state && state.alerta && <Alerta alerta={{ mensaje: state.alerta }} />}
+      {state ? (
+        <h2
+          style={{
+            backgroundColor: "red",
+            color: "white",
+            margin: "auto",
+            marginTop: 0,
+            marginBottom: 0,
+            textAlign: "center",
+            width: "50%",
+            padding: "10px",
+          }}
+        >
+          {state.alerta}
+        </h2>
+      ) : (
+        ""
+      )}
       <center style={{ marginTop: "3%" }}>
         <img src={fondoPagina} style={{ width: "30%" }} alt="fondo_pagina" />
       </center>

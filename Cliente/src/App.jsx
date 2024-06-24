@@ -28,7 +28,7 @@ function RutaProtegidaLogeado({ children }) {
   return usuarioLogeado.logeado ? (
     children
   ) : (
-    <Navigate to="/" state={{ alerta: "No estas logeado!" }} />
+    <Navigate to="/iniciar-sesion" state={{ alerta: "No estas logeado!" }} />
   );
 }
 
@@ -117,21 +117,37 @@ function App() {
         {/* Inicio de rutas de reservas */}
         <Route
           path="/reservas/:id"
-          element={<CrearReserva usuarioLogeado={usuarioLogeado} />}
+          element={
+            <RutaProtegidaLogeado>
+              <CrearReserva usuarioLogeado={usuarioLogeado} />
+            </RutaProtegidaLogeado>
+          }
         />
         <Route
           path="/reservas/editar-reserva/:id"
-          element={<EditarReserva usuarioLogeado={usuarioLogeado} />}
+          element={
+            <RutaProtegidaLogeado>
+              <EditarReserva usuarioLogeado={usuarioLogeado} />
+            </RutaProtegidaLogeado>
+          }
         />
         {/* Fin de rutas de reservas */}
         {/* Inicio de rutas de prestamos */}
         <Route
           path="/prestamos/:id"
-          element={<CrearPrestamo usuarioLogeado={usuarioLogeado} />}
+          element={
+            <RutaProtegidaLogeado>
+              <CrearPrestamo usuarioLogeado={usuarioLogeado} />
+            </RutaProtegidaLogeado>
+          }
         />
         <Route
           path="/prestamos/editar-prestamo/:id"
-          element={<EditarPrestamo usuarioLogeado={usuarioLogeado} />}
+          element={
+            <RutaProtegidaLogeado>
+              <EditarPrestamo usuarioLogeado={usuarioLogeado} />
+            </RutaProtegidaLogeado>
+          }
         />
         {/* Fin de rutas de prestamos */}
         <Route path="*" element={<Navigate to="/" />} />

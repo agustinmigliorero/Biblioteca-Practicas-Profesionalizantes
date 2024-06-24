@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Alerta from "../../componentes/Alerta.jsx";
 
 function IniciarSesion({ setUsuarioLogeado }) {
@@ -11,6 +11,7 @@ function IniciarSesion({ setUsuarioLogeado }) {
   const [alerta, setAlerta] = useState({ mensaje: "", error: false });
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const handleChange = (evento) => {
     const inputACambiar = evento.target.name;
@@ -48,6 +49,24 @@ function IniciarSesion({ setUsuarioLogeado }) {
   return (
     <>
       <center>
+        {state ? (
+          <h2
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              margin: "auto",
+              marginTop: 0,
+              marginBottom: 0,
+              textAlign: "center",
+              width: "50%",
+              padding: "10px",
+            }}
+          >
+            {state.alerta}
+          </h2>
+        ) : (
+          ""
+        )}
         <h1>Iniciar Sesion</h1>
         <form onSubmit={enviarFormulario}>
           <label>DNI:</label>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Alerta from "../../componentes/Alerta";
 
 function CrearReserva({ usuarioLogeado }) {
   const [reserva, setReserva] = useState({
@@ -8,6 +9,8 @@ function CrearReserva({ usuarioLogeado }) {
     fechaReserva: new Date().toISOString().split("T")[0],
     fechaDevolucion: new Date().toISOString().split("T")[0],
   });
+
+  const [alerta, setAlerta] = useState({ mensaje: "", error: false });
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,6 +23,11 @@ function CrearReserva({ usuarioLogeado }) {
 
   function enviarFormulario(evento) {
     evento.preventDefault();
+    let dateFechaReserva = new Date(reserva.fechaReserva);
+    let dateFechaDevolucion = new Date(reserva.fechaDevolucion);
+    //Agregarle 3 horas para evitar problemas con la diferencia horaria
+    dateFechaReserva.setHours(dateFechaReserva.getHours() + 3);
+    dateFechaDevolucion.setHours(dateFechaDevolucion.getHours() + 3);
     fetch(`${import.meta.env.VITE_API_URL}/api/reservas`, {
       method: "POST",
       headers: {
@@ -29,16 +37,19 @@ function CrearReserva({ usuarioLogeado }) {
       body: JSON.stringify({
         documento: usuarioLogeado.usuario._id,
         idLibro: id,
-        fechaReserva: reserva.fechaReserva,
-        fechaDevolucion: reserva.fechaDevolucion,
+        fechaReserva: dateFechaReserva,
+        fechaDevolucion: dateFechaDevolucion,
       }),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          console.log(data.error);
+          setAlerta({
+            error: true,
+            mensaje: "Las fechas son invalidas, revise los campos",
+          });
         } else {
-          navigate(-1);
+          navigate(`/usuarios/${usuarioLogeado.usuario._id}`);
         }
       });
   }
@@ -47,6 +58,7 @@ function CrearReserva({ usuarioLogeado }) {
     <div>
       <center>
         <h1>Reservar libros</h1>
+        {alerta.error ? <Alerta alerta={alerta} /> : ""}
         <form>
           <label>Fecha de reserva:</label>
           <br />

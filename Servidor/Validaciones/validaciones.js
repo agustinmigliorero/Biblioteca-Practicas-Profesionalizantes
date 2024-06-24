@@ -66,6 +66,23 @@ const validarModificarComentario = (req, res, next) => {
 
 const validarPrestamo = (req, res, next) => {
   const { error } = esquemaPrestamo.validate(req.body);
+  let { fechaDeInicio, fechaDeFin } = req.body;
+  let dateFechaInicio = new Date(fechaDeInicio);
+  let dateFechaFin = new Date(fechaDeFin);
+  if (dateFechaInicio.getTime() > dateFechaFin.getTime()) {
+    return res
+      .status(400)
+      .json({ error: "La fecha de fin debe ser mayor a la fecha de inicio" });
+  }
+  if (
+    dateFechaFin.getTime() < Date.now() ||
+    dateFechaInicio.getTime() < Date.now()
+  ) {
+    return res.status(400).json({
+      error:
+        "La fecha de fin o la fecha de inicio no pueden ser menores a la fecha actual",
+    });
+  }
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
@@ -74,6 +91,19 @@ const validarPrestamo = (req, res, next) => {
 
 const validarEditarPrestamo = (req, res, next) => {
   const { error } = esquemaEditarPrestamo.validate(req.body);
+  let { fechaDeInicio, fechaDeFin } = req.body;
+  let dateFechaDeInicio = new Date(fechaDeInicio);
+  let dateFechaDeFin = new Date(fechaDeFin);
+  if (dateFechaDeInicio.getTime() > dateFechaDeFin.getTime()) {
+    return res
+      .status(400)
+      .json({ error: "La fecha de fin debe ser mayor a la fecha de inicio" });
+  }
+  if (dateFechaDeFin.getTime() < Date.now()) {
+    return res
+      .status(400)
+      .json({ error: "La fecha de fin no puede ser menor a la fecha actual" });
+  }
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }

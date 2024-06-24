@@ -331,12 +331,22 @@ function VerLibro({ usuarioLogeado }) {
         <h3>
           Puntaje promedio de la publicacion: <b>{calcularPromedioPuntaje()}</b>
         </h3>
-        <Link to={"/reservas/" + libro._id} className={"btn btn-primary"}>
-          Reservar
-        </Link>
-        <Link to={"/prestamos/" + libro._id} className={"btn btn-primary"}>
-          Prestamo
-        </Link>
+        <br />
+        {usuarioLogeado.logeado ? (
+          <>
+            <Link to={"/reservas/" + libro._id} className={"btn btn-primary"}>
+              Reservar
+            </Link>
+            <Link to={"/prestamos/" + libro._id} className={"btn btn-primary"}>
+              Prestamo
+            </Link>
+          </>
+        ) : (
+          <Link to={"/iniciar-sesion"}>
+            Inicia sesion para reservar el libro!
+          </Link>
+        )}
+        <br />
         <br />
         {botonesBorrarYEditarLibro()}
         {usuarioLogeado.logeado ? (
