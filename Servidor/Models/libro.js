@@ -8,7 +8,6 @@ const schemaLibro = new Schema({
   categoria: { type: String },
   copiaVirtual: { type: String }, // url de la copia virtual
   copiasLibro: { type: Number },
-  //copiasDisponibles: { type: Number },
   comentarios: [{ type: Schema.Types.ObjectId, ref: "Comentario" }], // array de comentarios
   descripcion: { type: String },
   imagen: { type: String },

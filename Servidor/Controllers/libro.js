@@ -10,7 +10,6 @@ const crearLibro = async (req, res) => {
     copiasLibro,
     descripcion,
     imagen,
-    //copiasDisponibles,
   } = req.body;
   const libro = new Libro({
     titulo,
@@ -20,7 +19,6 @@ const crearLibro = async (req, res) => {
     copiasLibro,
     descripcion,
     imagen,
-    //copiasDisponibles,
   });
   await libro.save();
   res.json({ mensaje: "Libro creado" });
@@ -44,7 +42,6 @@ const modificarLibro = async (req, res) => {
     copiasLibro,
     descripcion,
     imagen,
-    //copiasDisponibles,
   } = req.body;
   const libro = await Libro.findByIdAndUpdate(id, {
     titulo,
@@ -54,7 +51,6 @@ const modificarLibro = async (req, res) => {
     copiasLibro,
     descripcion,
     imagen,
-    //copiasDisponibles,
   });
   res.json({ mensaje: "Libro modificado", libro });
 };
